@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="main">
+  {% for product in products %}
+  <div id="container">
+    <img src="{{product.img}}" alt="Placeholder" id="index_images"/>
+    <br />
+    <div class="mb-2" id="details">
+      <h3>{{product.name}}</h3>
+      <h3>₹{{product.price}}</h3>
+    </div>
+    {% if product.wishlist %}
+      <a href="{% url 'wishlist' %}" id="Wishlist" class="w-64 h-8 rounded-full text-center pt-1">Go to wishlist</a>
+    {% else %}
+      <a href="{% url 'addtowishlist' product.pk %}" id="Wishlist" class="w-64 h-8 rounded-full text-center pt-1">Add to wishlist</a>
+    {% endif %}
+      <br>
+    {% if product.value > 0 %}
+    <div id="subcontainer">
+      <a href="{% url 'cart' %}" class="bg-[blue] w-[16rem] h-8 text-center rounded-full py-1">Go to cart</a>
+    </div>
+    {% else %}
+      <a href="{% url 'addtocart' product.pk%}" class="bg-[blue] w-[16rem] h-8 text-center rounded-full py-1">Add to cart</a>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+{% endblock content %}
