@@ -4,10 +4,10 @@ from .models import Product, User
 # Create your views here.
 def index(request):
     products = Product.objects.all()
-    users = User.objects.all()
+    user = User.objects.get(pk=1)
     context = {
         'products' : products,
-        'users' : users
+        'user' : user
     }
     return render(request, 'index.html', context)
 
@@ -53,25 +53,36 @@ def cartadd_wislist(request, pk):
 
 def AddToWishlist(request, pk):
     product = Product.objects.get(pk=pk)
+    user = User.objects.get(pk=1)
     product.wishlist = True
+    user.wishlist += 1
     product.save()
+    user.save()
     return redirect('home')
 
 def RemoveFromWishlist(request, pk):
     product = Product.objects.get(pk=pk)
+    user = User.objects.get(pk=1)
     product.wishlist = False
+    user.wishlist -= 1
     product.save()
+    user.save()
     return redirect('wishlist')
 
 def Wishlist(request):
     products = Product.objects.all()
-    return render(request,'wishlist.html',{"products": products})
+    user = User.objects.get(pk=1)
+    context = {
+        'products' : products,
+        'user' : user
+    }
+    return render(request,'wishlist.html',context)
 
 def Cart(request):
     products = Product.objects.all()
-    users = User.objects.all()
+    user = User.objects.get(pk=1)
     context = {
         'products' : products,
-        'users' : users
+        'user' : user
     }
     return render(request,'cart.html',context)

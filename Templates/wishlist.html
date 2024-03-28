@@ -1,22 +1,29 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
 <div class="main">
     <div id="wishlist">
-        {% for product in products %}
-            {% if product.wishlist %}
-                <div class="w-full h-[10rem] bg-[rgb(40,40,40)] rounded-lg flex items-center justify-between px-4 overflow-hidden">
-                    <img class="rounded-lg w-[7rem] h-[85%]" src="{{product.img}}" alt="product-img">
-                    <p>{{product.name}}</p>
-                    <p><strong>₹{{product.price}}</strong></p>
-                    <a class="w-[5rem] h-[2rem] rounded-full bg-[white] text-[black] text-center pt-1" href="{% url 'removefromwishlist' product.pk%}">Remove</a>
-                    {% if product.value > 0 %}
-                        <a class="w-[10rem] h-[2rem] rounded-full bg-[white] text-[black] text-center pt-1" href="{% url 'cart' %}">Go to cart</a>
-                    {% else %}
-                        <a class="w-[10rem] h-[2rem] rounded-full bg-[white] text-[black] text-center pt-1" href="{% url 'addtocart_wishlist' product.pk%}">Add to cart</a>
-                    {% endif %}
-                </div>
-            {% endif %}
-        {% endfor %}
+        {% if user.wishlist %}
+            {% for product in products %}
+                {% if product.wishlist %}
+                    <div class="w-full h-[10rem] bg-[rgb(40,40,40)] rounded-lg flex items-center justify-between px-4 overflow-hidden">
+                        <img class="rounded-lg w-[7rem] h-[85%]" src="{{product.img}}" alt="product-img">
+                        <p>{{product.name}}</p>
+                        <p><strong>₹{{product.price}}</strong></p>
+                        <a class="w-[5rem] h-[2rem] rounded-full bg-[white] text-[black] text-center pt-1" href="{% url 'removefromwishlist' product.pk%}">Remove</a>
+                        {% if product.value > 0 %}
+                            <a class="w-[10rem] h-[2rem] rounded-full bg-[white] text-[black] text-center pt-1" href="{% url 'cart' %}">Go to cart</a>
+                        {% else %}
+                            <a class="w-[10rem] h-[2rem] rounded-full bg-[white] text-[black] text-center pt-1" href="{% url 'addtocart_wishlist' product.pk%}">Add to cart</a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <p class="text-3xl text-slate-500 mt-32">Your wishlist is empty</p>
+            <img src="{% static 'Images/empty_wishlist.png' %}" alt="empty_wishlist">
+            <a class="text-right text-xs w-full" href="https://www.freepik.com/icon/remove_10218522#fromView=search&page=1&position=3&uuid=3dc43c33-a395-4890-8f74-3808652408b5">Icon by Vectors Tank</a>
+        {% endif %}
     </div>
 </div>
 {% endblock content %}
