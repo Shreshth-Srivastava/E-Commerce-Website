@@ -65,6 +65,7 @@
             </div>
             {% endif %} {% endfor %}
         </div>
+        <a href="{% url 'checkout' user.pk %}" class="w-full h-full rounded-full bg-green-600 mt-8 text-xl p-1 text-center">Proceed to checkout</a>
     {% else %}
         <p class="text-3xl text-slate-500 mt-44">Your cart is empty</p>
         <img class="w-[20%] mt-12" src="{% static 'Images/empty_cart.png' %}" alt="empty_cart">

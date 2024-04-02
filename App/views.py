@@ -86,3 +86,10 @@ def Cart(request):
         'user' : user
     }
     return render(request,'cart.html',context)
+
+def Checkout(request, pk):
+    user = User.objects.get(pk=pk)
+    context={
+        'user': user,
+    }
+    return render(request,'checkout.html',context)
