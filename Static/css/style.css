@@ -37,6 +37,10 @@ nav>a{
 #navbar{
   display: flex;
 }
+.categoryList{
+  /* transform: translateY(-150%); */
+  transition: .2s;
+}
 /* .navbtn {
   border: 0;
   background-color: white;
