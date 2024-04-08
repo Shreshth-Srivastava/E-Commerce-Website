@@ -19,7 +19,7 @@
       <div class="w-[55%] flex items-center justify-between text-xl">
         <div class="categorybtn flex cursor-pointer">
           <p>Categories</p>
-          <span class="material-symbols-outlined pt-1">
+          <span class="material-symbols-outlined pt-1" id="arrow">
             keyboard_arrow_down
           </span>
         </div>
@@ -28,12 +28,12 @@
           <a class="material-symbols-outlined w-[4rem] h-[2rem] text-center py-1 mx-1 text-black bg-white rounded-full" href="{% url 'cart' %}"><span class="material-symbols-outlined"> shopping_cart </span></a>
         </div>
       </div>
-    <div class="categoryList absolute top-[100%] left-0 pt-12 px-40 w-full h-[0rem] opacity-0 overflow-hidden bg-[rgba(40,40,40,.95)] flex item-start justify-between">
-      <a href="#" class="h-[2rem]">Shoes</a>
-      <a href="#" class="h-[2rem]">Electronics</a>
-      <a href="#" class="h-[2rem]">Cosmetics</a>
-      <a href="#" class="h-[2rem]">Watch</a>
-      <a href="#" class="h-[2rem]">Clothing Accessories</a>
+    <div class="categoryList text-xl absolute top-[100%] left-0 pt-12 px-40 w-full h-[0rem] opacity-0 overflow-hidden bg-[rgba(40,40,40,.95)] flex item-start justify-between">
+      <a href="{% url 'Category' 'Shoes' %}" class="h-[2rem]">Shoes</a>
+      <a href="{% url 'Category' 'Electronics' %}" class="h-[2rem]">Electronics</a>
+      <a href="{% url 'Category' 'Cosmetics' %}" class="h-[2rem]">Cosmetics</a>
+      <a href="{% url 'Category' 'Watch' %}" class="h-[2rem]">Watch</a>
+      <a href="{% url 'Category' 'Clothing Accessories' %}" class="h-[2rem]">Clothing Accessories</a>
     </div>
     </nav>
     {% block content %} {% endblock content %}

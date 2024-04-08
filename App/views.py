@@ -93,3 +93,10 @@ def Checkout(request, pk):
         'user': user,
     }
     return render(request,'checkout.html',context)
+
+def Category(request, category):
+    products = Product.objects.filter(category=category)
+    context = {
+        'products': products,
+    }
+    return render(request,'category.html',context)

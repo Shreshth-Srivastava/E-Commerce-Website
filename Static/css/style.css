@@ -127,3 +127,7 @@ button {
   justify-content: start;
   gap: 1rem;
 }
+
+#arrow{
+  transition: .2s linear;
+}

@@ -13,4 +13,5 @@ urlpatterns = [
     path('wishlist/', views.Wishlist, name='wishlist'),
     path('cart/', views.Cart, name='cart'),
     path('checkout/<int:pk>/', views.Checkout, name='checkout'),
+    path('category/<str:category>/', views.Category, name='Category'),
 ]
