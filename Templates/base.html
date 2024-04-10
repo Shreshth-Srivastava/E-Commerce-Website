@@ -29,11 +29,11 @@
         </div>
       </div>
     <div class="categoryList text-xl absolute top-[100%] left-0 pt-12 px-40 w-full h-[0rem] opacity-0 overflow-hidden bg-[rgba(40,40,40,.95)] flex item-start justify-between">
-      <a href="{% url 'Category' 'Shoes' %}" class="h-[2rem]">Shoes</a>
-      <a href="{% url 'Category' 'Electronics' %}" class="h-[2rem]">Electronics</a>
-      <a href="{% url 'Category' 'Cosmetics' %}" class="h-[2rem]">Cosmetics</a>
-      <a href="{% url 'Category' 'Watch' %}" class="h-[2rem]">Watch</a>
-      <a href="{% url 'Category' 'Clothing Accessories' %}" class="h-[2rem]">Clothing Accessories</a>
+      <a href="{% url 'category' 'Shoes' %}" class="h-[2rem]">Shoes</a>
+      <a href="{% url 'category' 'Electronics' %}" class="h-[2rem]">Electronics</a>
+      <a href="{% url 'category' 'Cosmetics' %}" class="h-[2rem]">Cosmetics</a>
+      <a href="{% url 'category' 'Watch' %}" class="h-[2rem]">Watch</a>
+      <a href="{% url 'category' 'Clothing Accessories' %}" class="h-[2rem]">Clothing Accessories</a>
     </div>
     </nav>
     {% block content %} {% endblock content %}

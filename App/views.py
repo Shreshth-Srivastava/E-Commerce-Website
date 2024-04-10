@@ -39,7 +39,7 @@ def cartadd(request, pk):
     user.orderPrice += product.price
     product.save()
     user.save()
-    return redirect('home')
+    return redirect('category',product.category)
 
 def cartadd_wislist(request, pk):
     product = Product.objects.get(pk=pk)
@@ -58,7 +58,7 @@ def AddToWishlist(request, pk):
     user.wishlist += 1
     product.save()
     user.save()
-    return redirect('home')
+    return redirect('category',product.category)
 
 def RemoveFromWishlist(request, pk):
     product = Product.objects.get(pk=pk)

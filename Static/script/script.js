@@ -19,3 +19,16 @@ category.addEventListener('click',()=>{
         flag = 0;
     }
 })
+
+const banner_container = document.querySelector('#banner_container');
+const banner = document.querySelector('.banner');
+const arr_lft = document.querySelector('#arrow_left');
+const arr_rgt = document.querySelector('#arrow_right');
+
+arr_lft.addEventListener('click',()=>{
+    if(banner_container.pageXOffset != undefined){
+        if(banner_container.pageXOffset >= banner.offsetWidth){
+            banner_container.pageXOffset =- banner.offsetWidth;
+        }
+    }
+})
