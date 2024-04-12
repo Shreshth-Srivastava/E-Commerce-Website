@@ -12,7 +12,7 @@ class Product(models.Model):
     wishlist = models.BooleanField(default = False)
 
 class User(models.Model):
-    # Create a user ID
+    userID = models.CharField(default = '', null = True, blank = True, max_length=10)
     username = models.CharField(default = "User",null = False, max_length = 200)
     password = models.CharField(default = None, null = True, max_length=15)
     cart = models.IntegerField(default = 0)

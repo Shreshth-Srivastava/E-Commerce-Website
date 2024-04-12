@@ -2,14 +2,21 @@ from django.shortcuts import render, redirect
 from .models import Product, User
 
 # Create your views here.
-def index(request):
-    products = Product.objects.all()
-    user = User.objects.get(pk=1)
-    context = {
-        'products' : products,
-        'user' : user
-    }
-    return render(request, 'index.html', context)
+def index(request, userID):
+    if(userID != ''):
+        products = Product.objects.all()
+        user = User.objects.get(userID = userID)
+        context = {
+            'products' : products,
+            'user' : user
+        }
+        return render(request, 'index.html', context)
+    else:
+        products = Product.objects.all()
+        context = {
+            'products' : products,
+        }
+        return render(request, 'index.html', context)
 
 def inc_count(request, pk):
     product = Product.objects.get(pk=pk)
