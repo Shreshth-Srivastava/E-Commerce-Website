@@ -15,7 +15,11 @@
   </head>
   <body>
     <nav>
-      <a href="{% url 'home' %}">ECom.</a>
+      {% if user.userID %}
+        <a href="{% url 'home2' user.userID %}">ECom.</a>
+      {% else %}
+        <a href="{% url 'home' %}">ECom.</a>
+      {% endif %}
       <div class="w-[55%] flex items-center justify-between text-xl">
         <div class="categorybtn flex cursor-pointer">
           <p>Categories</p>
@@ -24,11 +28,11 @@
           </span>
         </div>
         <div id="navbar">
-          {% if user.ID != None %}
+          {% if user.userID %}
             <a class="material-symbols-outlined w-[4rem] h-[2rem] text-center py-1 mx-1 text-black bg-white rounded-full" href="{% url 'wishlist' %}"><span class="material-symbols-outlined"> favorite </span></a>
             <a class="material-symbols-outlined w-[4rem] h-[2rem] text-center py-1 mx-1 text-black bg-white rounded-full" href="{% url 'cart' %}"><span class="material-symbols-outlined"> shopping_cart </span></a>
           {% else %}
-            <a href="{% url 'home2' user.userID %}" class="p-1 bg-yellow-500 cursor-pointer">Log in</a>
+            <a href="{% url 'login' %}" class="p-1 bg-yellow-500 cursor-pointer">Log in</a>
           {% endif %}
           </div>
       </div>

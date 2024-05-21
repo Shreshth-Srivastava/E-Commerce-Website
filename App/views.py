@@ -4,10 +4,8 @@ from .models import Product, User
 # Create your views here.
 def index(request):
     products = Product.objects.all()
-    user = User.objects.get(pk=1)
     context = {
         'products' : products,
-        'user' : user
     }
     return render(request, 'index.html', context)
 

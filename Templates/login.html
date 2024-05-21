@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <title>Login</title>
+</head>
+<body>
+    <section class='w-full h-[100vh] bg-[#121212] flex items-center justify-center' id='login_pg'>
+        <section class='w-1/4 h-[60%] border-2 border-white rounded-lg flex flex-col items-center justify-start gap-12 p-6 pt-8'>
+            <h1 class='text-4xl font-bold'>Login</h1>
+            <form action="{% url 'login' %}" method='POST' class='w-full h-1/2 flex flex-col'>
+                {% csrf_token %}
+                <label class='mb-4'>UserID</label>
+                <input class='text-black' type="text" name="userID" placeholder="  UserID" Required>
+                <br>
+                <label class='mb-4'>Password</label>
+                <input class='text-black' type="password" name="password" placeholder="  Enter your password" Required>
+                <br>
+                <button class='w-full h-[20%] border-2'>Submit</button>
+            </form>
+        </section>
+    </section>
+</body>
+</html>

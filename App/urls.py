@@ -4,7 +4,8 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='home'),
-    path('',include("Authorised_User.urls"), name="home2"),
+    # path('',include("Authorised_User.urls"), name="login"),
+    path('/<str:userID>',include("Authorised_User.urls"), name="home2"),
     path('cartadd/<int:pk>/', views.cartadd, name='addtocart'),
     path('cartadd_wishlist/<int:pk>/', views.cartadd_wislist, name='addtocart_wishlist'),
     path('increase/<int:pk>/', views.inc_count, name='increase'),

@@ -131,3 +131,7 @@ button {
 #arrow{
   transition: .2s linear;
 }
+
+#login_pg{
+  font-family: Gilroy,sans-serif;
+}
