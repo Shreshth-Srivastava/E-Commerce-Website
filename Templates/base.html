@@ -15,11 +15,7 @@
   </head>
   <body>
     <nav>
-      {% if user.userID %}
-        <a href="{% url 'home2' user.userID %}">ECom.</a>
-      {% else %}
-        <a href="{% url 'home' %}">ECom.</a>
-      {% endif %}
+      <a href="{% url 'home' %}">ECom.</a>
       <div class="w-[55%] flex items-center justify-between text-xl">
         <div class="categorybtn flex cursor-pointer">
           <p>Categories</p>
@@ -28,20 +24,15 @@
           </span>
         </div>
         <div id="navbar">
-          {% if user.userID %}
-            <a class="material-symbols-outlined w-[4rem] h-[2rem] text-center py-1 mx-1 text-black bg-white rounded-full" href="{% url 'wishlist' %}"><span class="material-symbols-outlined"> favorite </span></a>
-            <a class="material-symbols-outlined w-[4rem] h-[2rem] text-center py-1 mx-1 text-black bg-white rounded-full" href="{% url 'cart' %}"><span class="material-symbols-outlined"> shopping_cart </span></a>
-          {% else %}
-            <a href="{% url 'login' %}" class="p-1 bg-yellow-500 cursor-pointer">Log in</a>
-          {% endif %}
-          </div>
+          <a href="{% url 'login' %}" class="p-1 px-2 bg-yellow-500 cursor-pointer rounded-full">Log in</a>
+        </div>
       </div>
     <div class="categoryList text-xl absolute top-[100%] left-0 pt-12 px-40 w-full h-[0rem] opacity-0 overflow-hidden bg-[rgba(40,40,40,.95)] flex item-start justify-between">
-      <a href="{% url 'category' 'Shoes' %}" class="h-[2rem]">Shoes</a>
-      <a href="{% url 'category' 'Electronics' %}" class="h-[2rem]">Electronics</a>
-      <a href="{% url 'category' 'Cosmetics' %}" class="h-[2rem]">Cosmetics</a>
-      <a href="{% url 'category' 'Watch' %}" class="h-[2rem]">Watch</a>
-      <a href="{% url 'category' 'Clothing Accessories' %}" class="h-[2rem]">Clothing Accessories</a>
+      <a href="{% url 'category1' 'Shoes' %}" class="h-[2rem]">Shoes</a>
+      <a href="{% url 'category1' 'Electronics' %}" class="h-[2rem]">Electronics</a>
+      <a href="{% url 'category1' 'Cosmetics' %}" class="h-[2rem]">Cosmetics</a>
+      <a href="{% url 'category1' 'Watch' %}" class="h-[2rem]">Watch</a>
+      <a href="{% url 'category1' 'Clothing Accessories' %}" class="h-[2rem]">Clothing Accessories</a>
     </div>
     </nav>
     {% block content %} {% endblock content %}

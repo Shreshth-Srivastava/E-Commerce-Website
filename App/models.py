@@ -11,6 +11,9 @@ class Product(models.Model):
     value = models.IntegerField(default   = 0)
     wishlist = models.BooleanField(default = False)
 
+    def __str__(self):
+        return self.name
+
 class User(models.Model):
     userID = models.CharField(default = None, null = True, blank = True, max_length=10)
     username = models.CharField(default = "User",null = False, max_length = 200)
@@ -18,3 +21,6 @@ class User(models.Model):
     cart = models.IntegerField(default = 0)
     orderPrice = models.IntegerField(default = 0)
     wishlist = models.IntegerField(default = 0)
+
+    def __str__(self):
+        return self.username

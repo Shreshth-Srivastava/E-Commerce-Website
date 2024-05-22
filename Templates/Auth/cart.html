@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'Auth/base.html' %}
 {% load static %}
 {% block content %}
 <div class="w-full min-h-full flex flex-col items-center p-4">
@@ -51,10 +51,10 @@
                 <div class="w-16 h-12 flex items-center justify-center gap-2">
                     <p class="text-xl">{{product.value}}</p>
                     <span class="flex flex-col">
-                        <a href="{% url 'increase' product.pk %}"><span class="material-symbols-outlined cursor-pointer">
+                        <a href="{% url 'increase' user.userID product.pk %}"><span class="material-symbols-outlined cursor-pointer">
                                 keyboard_arrow_up
                             </span></a>
-                        <a href="{% url 'decrease' product.pk %}"><span class="material-symbols-outlined cursor-pointer">
+                        <a href="{% url 'decrease' user.userID product.pk %}"><span class="material-symbols-outlined cursor-pointer">
                                 keyboard_arrow_down
                             </span></a>
                     </span>
@@ -65,7 +65,7 @@
             </div>
             {% endif %} {% endfor %}
         </div>
-        <a href="{% url 'checkout' user.pk %}" class="w-full h-full rounded-full bg-green-600 mt-8 text-xl p-1 text-center">Proceed to checkout</a>
+        <a href="{% url 'checkout' user.userID %}" class="w-full h-full rounded-full bg-green-600 mt-8 text-xl p-1 text-center">Proceed to checkout</a>
     {% else %}
         <p class="text-3xl text-slate-500 mt-44">Your cart is empty</p>
         <img class="w-[20%] mt-12" src="{% static 'Images/empty_cart.png' %}" alt="empty_cart">
