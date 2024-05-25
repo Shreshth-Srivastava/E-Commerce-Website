@@ -33,18 +33,23 @@ const arr_rgt = document.querySelector('#arrow_right');
 //     }
 // })
 
-/*wishlist = document.querySelectorAll('#Wishlist');
-    wishlist.forEach((item) => {
-        var in_wishlist = false;
-        item.addEventListener('click',()=>{
-            if(!in_wishlist){
-                item.textContent = 'Go to cart';
-                in_wishlist = true;
-            }
-            else{
-                item.textContent = 'Added to cart';
-                in_wishlist = false;
-            }
-        })
-    });
-*/
+wishlist = document.querySelectorAll('#Wishlist');
+wishlist.forEach((item) => {
+    var url1 = item.dataset.url1
+    var url2 = item.dataset.url2
+    var flag = item.dataset.flag
+    item.addEventListener('click',()=>{
+        if(flag == "False"){
+            item.textContent = 'Go to wishlist';
+            console.log("http://127.0.0.1:8000"+url1)
+            item.flag = "True";
+            window.location.href = `http://127.0.0.1:8000/${url1}`
+        }
+        else{
+            item.textContent = 'Add to wishlist';
+            console.log("http://127.0.0.1:8000"+url2)
+            item.flag = "False";
+            window.location.href = `http://127.0.0.1:8000/${url2}`
+        }
+    })
+});

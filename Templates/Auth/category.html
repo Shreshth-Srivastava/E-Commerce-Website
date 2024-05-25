@@ -9,19 +9,7 @@
         <h3>{{product.name}}</h3>
         <h3>₹{{product.price}}</h3>
       </div>
-      {% if flag %}
-        <a href="{% url 'wishlist' user.id %}" id="Wishlist" class="w-64 h-8 rounded-full text-center pt-1">Go to wishlist</a>
-      {% else %}
-        <a href="{% url 'addtowishlist' user.id product.pk %}" id="Wishlist" class="w-64 h-8 rounded-full text-center pt-1">Add to wishlist</a>
-      {% endif %}
-      <br>
-      {% if product.value > 0 %}
-      <div id="subcontainer">
-        <a href="{% url 'cart' user.id %}" class="bg-[blue] w-[16rem] h-8 text-center rounded-full py-1">Go to cart</a>
-      </div>
-      {% else %}
-        <a href="{% url 'addtocart' user.id product.pk%}" class="bg-[blue] w-[16rem] h-8 text-center rounded-full py-1">Add to cart</a>
-      {% endif %}
+      <a href="{% url 'details' user.id product.id %}" class="bg-[blue] w-[16rem] h-8 text-center rounded-full py-1">View Details</a>
     </div>
     {% endfor %}
   </div>

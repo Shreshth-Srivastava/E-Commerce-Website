@@ -1,0 +1,23 @@
+{% extends "Auth/base.html" %}
+{% block content %}
+<div class="w-full h-[100vh] flex items-center justify-center gap-4 px-8">
+    <div class="left w-[50%] h-[70%] w-1/2">
+        <img src="{{product.img}}" alt="product_img" class="w-full h-full aspect-video rounded-lg">
+    </div>
+    <div class="right w-full h-[70%] bg-[rgb(60,60,60)] rounded-lg p-8">
+        <section class="flex items-center justify-between">    
+            <div class="title text-4xl">{{product.name}}</div>
+            <div class="price text-4xl">₹{{product.price}}</div>
+        </section>
+        <div class="description py-8">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum possimus, deleniti dignissimos recusandae, officiis ea explicabo et ad itaque exercitationem vel ipsam tempore tenetur quos, voluptate debitis. Porro nesciunt excepturi natus numquam, tenetur qui sapiente nemo, molestias aliquid impedit quisquam deleniti ea nihil, iste vel adipisci vitae aspernatur nam molestiae.</div>
+        <section class="pt-4">
+            <a href="{% url 'addtocart' user.id product.id %}" class="bg-white w-[16rem] h-8 text-black text-center rounded-full p-3 mr-4">Add to cart</a>
+            {% if wishlist %}
+            <a href="{% url 'wishlist' user.id %}" class="bg-white w-[16rem] h-8 text-black text-center rounded-full p-3">Go to wishlist</a>
+            {% else %}
+            <a href="{% url 'addtowishlist' user.id product.id %}" class="bg-white w-[16rem] h-8 text-black text-center rounded-full p-3">Add to wishlist</a>
+            {% endif %}
+        </section>
+    </div>
+</div>
+{% endblock content %}

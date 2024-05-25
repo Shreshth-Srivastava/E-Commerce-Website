@@ -69,7 +69,7 @@ def AddToWishlist(request, id, pk):
     product = Product.objects.get(pk=pk)
     user = User.objects.get(id=id)
     WishlistItem.objects.create(user=user, name=product.name, price=product.price, img=product.img)
-    return redirect('category2', user.id, product.category)
+    return redirect('details', user.id, product.id)
 
 def RemoveFromWishlist(request, id, pk):
     user = User.objects.get(id=id)
@@ -126,11 +126,21 @@ def Category(request, id ,category):
     user = User.objects.get(id=id)
     products = Product.objects.filter(category=category)
     wishlist = WishlistItem.objects.filter(user=user)
-    flag = False
     context = {
         'products': products,
         'user': user,
         'wishlist': wishlist,
-        'flag': flag
     }
     return render(request,'Auth/category.html',context)
+
+def Details(request, user_id, product_id):
+    user = User.objects.get(id = user_id)
+    product = Product.objects.get(id = product_id)
+    user_wishlist = WishlistItem.objects.filter(user=user)
+    wishlist = user_wishlist.filter(name=product.name)
+    context = {
+        'user': user,
+        'product': product,
+        'wishlist': wishlist
+    }
+    return render(request,'Auth/details.html',context)
