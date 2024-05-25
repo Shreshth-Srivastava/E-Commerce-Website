@@ -25,10 +25,26 @@ const banner = document.querySelector('.banner');
 const arr_lft = document.querySelector('#arrow_left');
 const arr_rgt = document.querySelector('#arrow_right');
 
-arr_lft.addEventListener('click',()=>{
-    if(banner_container.pageXOffset != undefined){
-        if(banner_container.pageXOffset >= banner.offsetWidth){
-            banner_container.pageXOffset =- banner.offsetWidth;
-        }
-    }
-})
+// arr_lft.addEventListener('click',()=>{
+//     if(banner_container.pageXOffset != undefined){
+//         if(banner_container.pageXOffset >= banner.offsetWidth){
+//             banner_container.pageXOffset =- banner.offsetWidth;
+//         }
+//     }
+// })
+
+/*wishlist = document.querySelectorAll('#Wishlist');
+    wishlist.forEach((item) => {
+        var in_wishlist = false;
+        item.addEventListener('click',()=>{
+            if(!in_wishlist){
+                item.textContent = 'Go to cart';
+                in_wishlist = true;
+            }
+            else{
+                item.textContent = 'Added to cart';
+                in_wishlist = false;
+            }
+        })
+    });
+*/

@@ -3,21 +3,19 @@
 {% block content %}
 <div class="main">
     <div id="wishlist">
-        {% if user.wishlist %}
+        {% if products %}
             {% for product in products %}
-                {% if product.wishlist %}
-                    <div class="w-full h-[10rem] bg-[rgb(40,40,40)] rounded-lg flex items-center justify-between px-4 overflow-hidden">
-                        <img class="rounded-lg w-[7rem] h-[85%]" src="{{product.img}}" alt="product-img">
-                        <p>{{product.name}}</p>
-                        <p><strong>₹{{product.price}}</strong></p>
-                        <a class="w-[5rem] h-[2rem] rounded-full bg-[white] text-[black] text-center pt-1" href="{% url 'removefromwishlist' user.userID product.pk%}">Remove</a>
-                        {% if product.value > 0 %}
-                            <a class="w-[10rem] h-[2rem] rounded-full bg-[white] text-[black] text-center pt-1" href="{% url 'cart' user.userID %}">Go to cart</a>
-                        {% else %}
-                            <a class="w-[10rem] h-[2rem] rounded-full bg-[white] text-[black] text-center pt-1" href="{% url 'addtocart_wishlist' user.userID product.pk%}">Add to cart</a>
-                        {% endif %}
-                    </div>
-                {% endif %}
+                <div class="w-full h-[10rem] bg-[rgb(40,40,40)] rounded-lg flex items-center justify-between px-4 overflow-hidden">
+                    <img class="rounded-lg w-[7rem] h-[85%]" src="{{product.img}}" alt="product-img">
+                    <p>{{product.name}}</p>
+                    <p><strong>₹{{product.price}}</strong></p>
+                    <a class="w-[5rem] h-[2rem] rounded-full bg-[white] text-[black] text-center pt-1" href="{% url 'removefromwishlist' user.id product.pk%}">Remove</a>
+                    {% comment %} {% if product.value > 0 %}
+                        <a class="w-[10rem] h-[2rem] rounded-full bg-[white] text-[black] text-center pt-1" href="{% url 'cart' user.id %}">Go to cart</a>
+                    {% else %}
+                        <a class="w-[10rem] h-[2rem] rounded-full bg-[white] text-[black] text-center pt-1" href="{% url 'addtocart_wishlist' user.id product.pk%}">Add to cart</a>
+                    {% endif %} {% endcomment %}
+                </div>
             {% endfor %}
         {% else %}
             <p class="text-3xl text-slate-500 mt-32">Your wishlist is empty</p>

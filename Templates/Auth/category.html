@@ -9,18 +9,18 @@
         <h3>{{product.name}}</h3>
         <h3>₹{{product.price}}</h3>
       </div>
-      {% if product.wishlist %}
-        <a href="{% url 'wishlist' user.userID %}" id="Wishlist" class="w-64 h-8 rounded-full text-center pt-1">Go to wishlist</a>
+      {% if flag %}
+        <a href="{% url 'wishlist' user.id %}" id="Wishlist" class="w-64 h-8 rounded-full text-center pt-1">Go to wishlist</a>
       {% else %}
-        <a href="{% url 'addtowishlist' user.userID product.pk %}" id="Wishlist" class="w-64 h-8 rounded-full text-center pt-1">Add to wishlist</a>
+        <a href="{% url 'addtowishlist' user.id product.pk %}" id="Wishlist" class="w-64 h-8 rounded-full text-center pt-1">Add to wishlist</a>
       {% endif %}
-        <br>
+      <br>
       {% if product.value > 0 %}
       <div id="subcontainer">
-        <a href="{% url 'cart' user.userID %}" class="bg-[blue] w-[16rem] h-8 text-center rounded-full py-1">Go to cart</a>
+        <a href="{% url 'cart' user.id %}" class="bg-[blue] w-[16rem] h-8 text-center rounded-full py-1">Go to cart</a>
       </div>
       {% else %}
-        <a href="{% url 'addtocart' user.userID product.pk%}" class="bg-[blue] w-[16rem] h-8 text-center rounded-full py-1">Add to cart</a>
+        <a href="{% url 'addtocart' user.id product.pk%}" class="bg-[blue] w-[16rem] h-8 text-center rounded-full py-1">Add to cart</a>
       {% endif %}
     </div>
     {% endfor %}
