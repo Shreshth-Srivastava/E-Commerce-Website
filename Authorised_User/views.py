@@ -1,20 +1,36 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from App.models import Product, Customer, WishlistItem
+from django.contrib.auth import authenticate,login,logout
 
 # Create your views here.
 
-def login(request):
+def mylogin(request):
     customers = Customer.objects.all()
     if(request.method == "POST"):
         userID = request.POST["userID"]
         password = request.POST["password"]
         for customer in customers:
             if((userID == customer.userID) & (password == customer.password)):
-                return redirect('home2', customer.user.pk)
+                myuser = customer.user
+                user = authenticate(username=myuser.username, password=password)
+                if user is not None:
+                    login(request, myuser)
+                    products = Product.objects.all()
+                    context = {
+                        'products' : products,
+                        'user' : myuser
+                    }
+                    return render(request, 'Auth/index.html', context)
+                else:
+                    get_object_or_404(Customer, userID = userID)
             else:
                 get_object_or_404(Customer, userID = userID)
     return render(request, 'login.html')
+
+def mylogout(request):
+    logout(request)
+    return redirect('home')
 
 def index2(request, id):
     products = Product.objects.all()
@@ -126,6 +142,7 @@ def Category(request, id ,category):
     user = User.objects.get(id=id)
     products = Product.objects.filter(category=category)
     wishlist = WishlistItem.objects.filter(user=user)
+    # wishlist = WishlistItem.objects.filter(user=user).values_list('name') !!New!!
     context = {
         'products': products,
         'user': user,
