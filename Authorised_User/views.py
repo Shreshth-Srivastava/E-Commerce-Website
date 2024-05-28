@@ -16,12 +16,7 @@ def mylogin(request):
                 user = authenticate(username=myuser.username, password=password)
                 if user is not None:
                     login(request, myuser)
-                    products = Product.objects.all()
-                    context = {
-                        'products' : products,
-                        'user' : myuser
-                    }
-                    return render(request, 'Auth/index.html', context)
+                    return redirect('home2', myuser.id)
                 else:
                     get_object_or_404(Customer, userID = userID)
             else:
