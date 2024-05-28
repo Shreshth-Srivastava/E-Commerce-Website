@@ -29,13 +29,6 @@ class Customer(models.Model):
     def __str__(self):
         return self.username
     
-'''class Wishlist(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
-
-    def __str__(self):
-        return str(self.id)
-'''
-    
 class WishlistItem(models.Model):
     # wishlist = models.ForeignKey(Wishlist, on_delete=models.CASCADE, null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
@@ -45,4 +38,21 @@ class WishlistItem(models.Model):
 
     def __str__(self):
         return self.name
+
+class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
+    date_ordered = models.DateTimeField(auto_now_add=True)
+    completed = models.BooleanField(default=False)
+    transaction_id = models.CharField(max_length=200 ,null=True, blank=True)
+
+    def __str__(self):
+        return str(self.id)
     
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.SET_NULL, blank=True, null=True)
+    product = models.OneToOneField(Product, on_delete=models.SET_NULL, null=True, blank=True)
+    quantity = models.IntegerField(default=1)
+    price = models.IntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return self.product.name
