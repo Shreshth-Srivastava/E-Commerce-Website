@@ -1,8 +1,8 @@
-{% extends 'Auth/base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 {% block content %}
 <div class="w-full min-h-full flex flex-col items-center p-4">
-    {% if user.cart %}
+    {% if items %}
         <div name="Top-part" class="w-full h-[10rem] bg-[rgb(40,40,40)] text-center p-2 px-3 mt-12 rounded-lg" id="total">
             <h1 class="text-3xl mb-2">Cart</h1>
             <hr />
@@ -16,9 +16,9 @@
                     </div>
                 </div>
                 <div class="w-full h-full flex justify-between">
-                    <div class="w-1/2 h-full text-center text-2xl pt-5">{{user.cart}}</div>
+                    <div class="w-1/2 h-full text-center text-2xl pt-5">{{ items.count }}</div>
                     <div class="w-1/2 h-full text-center text-2xl pt-5">
-                        ₹{{user.orderPrice}}
+                        ₹{{ user.customer.cart }}
                     </div>
                 </div>
             </div>
@@ -39,31 +39,37 @@
             </div>
         </div>
         <div name="Orders" class="w-full h-full px-4">
-            {% for product in products %} {% if product.value %}
+            {% for item in items %}
             <div class="w-full h-40 px-4 flex items-center justify-between py-3 my-2 border-b-2 border-[rgb(100,100,100)]">
-                <img class="h-full w-[7rem] rounded-lg" src="{{product.img}}" alt="Product-image" />
+                <img class="h-full w-[7rem] rounded-lg" src="{{item.product.img}}" alt="Product-image" />
                 <div class="w-24 h-24 flex items-center justify-center text-center text-xl">
-                    <p>{{product.name}}</p>
+                    <p>{{item.product.name}}</p>
                 </div>
                 <div class="w-16 h-12 flex justify-center items-center text-xl">
-                    <p>₹{{product.price}}</p>
+                    <p>₹{{item.product.price}}</p>
                 </div>
                 <div class="w-16 h-12 flex items-center justify-center gap-2">
-                    <p class="text-xl">{{product.value}}</p>
+                    <p class="text-xl">{{item.quantity}}</p>
                     <span class="flex flex-col">
-                        <a href="{% url 'increase' user.id product.pk %}"><span class="material-symbols-outlined cursor-pointer">
-                                keyboard_arrow_up
-                            </span></a>
-                        <a href="{% url 'decrease' user.id product.pk %}"><span class="material-symbols-outlined cursor-pointer">
-                                keyboard_arrow_down
-                            </span></a>
+                        <a href="{% url 'increase' user.id item.pk %}"><span class="material-symbols-outlined cursor-pointer">
+                            keyboard_arrow_up
+                        </span></a>
+                        {% if item.quantity > 1 %}
+                        <a href="{% url 'decrease' user.id item.pk %}"><span class="material-symbols-outlined cursor-pointer">
+                            keyboard_arrow_down
+                        </span></a>
+                        {% else %}
+                        <a href="{% url 'removefromcart' user.id item.pk %}"><span class="material-symbols-outlined cursor-pointer">
+                            keyboard_arrow_down
+                        </span></a>
+                        {% endif %}
                     </span>
                 </div>
                 <div class="w-16 h-12 flex justify-center items-center">
-                    <p>₹{% widthratio product.value 1 product.price %}</p>
+                    <p>₹{% widthratio item.quantity 1 item.price %}</p>
                 </div>
             </div>
-            {% endif %} {% endfor %}
+            {% endfor %}
         </div>
         <a href="{% url 'checkout' user.id %}" class="w-full h-full rounded-full bg-green-600 mt-8 text-xl p-1 text-center">Proceed to checkout</a>
     {% else %}

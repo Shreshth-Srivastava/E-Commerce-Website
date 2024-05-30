@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
-from App.models import Product, Customer, WishlistItem
+from App.models import Product, Customer, WishlistItem, Order, OrderItem
 from django.contrib.auth import authenticate,login,logout
 
 # Create your views here.
@@ -37,34 +37,41 @@ def index2(request, id):
     return render(request, 'Auth/index.html', context)
 
 def inc_count(request, id, pk):
-    product = Product.objects.get(pk=pk)
-    user = Customer.user.objects.get(id=id)
-    product.value += 1
-    user.cart += 1
-    user.orderPrice += product.price
-    product.save()
-    user.save()
-    return redirect('cart', user.userID)
+    item = OrderItem.objects.get(pk=pk)
+    user = User.objects.get(id=id)
+    item.quantity += 1
+    # user.cart += 1
+    user.customer.cart += item.price
+    item.save()
+    user.customer.save()
+    return redirect('cart', user.id)
 
-def dec_count(request, userID, pk):
-    product = Product.objects.get(pk=pk)
-    user = Customer.objects.get(userID=userID)
-    product.value -= 1
-    user.cart -= 1
-    user.orderPrice -= product.price
-    product.save()
-    user.save()
-    return redirect('cart', user.userID)
+def dec_count(request, id, pk):
+    item = OrderItem.objects.get(pk=pk)
+    user = User.objects.get(id=id)
+    item.quantity -= 1
+    # user.cart -= 1
+    user.customer.cart -= item.price
+    item.save()
+    user.customer.save()
+    return redirect('cart', user.id)
 
 def cartadd(request, userID, pk):
     product = Product.objects.get(pk=pk)
     user = Customer.objects.get(userID=userID)
     product.value += 1
-    user.cart += 1
-    user.orderPrice += product.price
+    user.cart += product.price
     product.save()
     user.save()
     return redirect('category2', user.userID, product.category)
+
+def cartremove(request, userid, itemid):
+    item = OrderItem.objects.get(id=itemid)
+    user = User.objects.get(id=userid)
+    user.customer.cart -= item.price
+    user.customer.save()
+    item.delete()
+    return redirect('cart', userid)
 
 def cartadd_wislist(request, userID, pk):
     product = Product.objects.get(pk=pk)
@@ -117,11 +124,12 @@ def Wishlist(request, id):
     }
     return render(request,'Auth/wishlist.html',context)
 
-def Cart(request, userID):
-    products = Product.objects.all()
-    user = Customer.objects.get(userID=userID)
+def Cart(request, id):
+    # products = Product.objects.all()
+    user = User.objects.get(id=id)
+    items = OrderItem.objects.filter(user=user)
     context = {
-        'products' : products,
+        'items' : items,
         'user' : user
     }
     return render(request,'Auth/cart.html',context)

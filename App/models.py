@@ -10,7 +10,7 @@ class Product(models.Model):
     category = models.CharField(default = 'not defined', max_length = 50)
     img = models.CharField(default = "#",max_length=200)
     price = models.IntegerField(default = 0)
-    value = models.IntegerField(default   = 0)
+    # value = models.IntegerField(default   = 0)
     # wishlist = models.BooleanField(default = False)
 
     def __str__(self):
@@ -23,7 +23,7 @@ class Customer(models.Model):
     username = models.CharField(default = "User",null = False, max_length = 200)
     password = models.CharField(default = None, null = True, max_length=15)
     cart = models.IntegerField(default = 0)
-    orderPrice = models.IntegerField(default = 0)
+    # orderPrice = models.IntegerField(default = 0)
     # wishlist = models.IntegerField(default = 0)
 
     def __str__(self):
@@ -48,7 +48,14 @@ class Order(models.Model):
     def __str__(self):
         return str(self.id)
     
+    @property
+    def get_cart_total(self):
+        orderitems = self.orderitem_set.all()
+        total = sum([item.get_total for item in orderitems])
+        return total
+    
 class OrderItem(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, blank=True, null=True)
     product = models.OneToOneField(Product, on_delete=models.SET_NULL, null=True, blank=True)
     quantity = models.IntegerField(default=1)
@@ -56,3 +63,8 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return self.product.name
+    
+    @property
+    def get_total(self):
+        total = self.product.price * self.quantity
+        return total
