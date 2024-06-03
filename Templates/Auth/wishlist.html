@@ -10,11 +10,7 @@
                     <p>{{product.name}}</p>
                     <p><strong>₹{{product.price}}</strong></p>
                     <a class="w-[5rem] h-[2rem] rounded-full bg-[white] text-[black] text-center pt-1" href="{% url 'removefromwishlist' user.id product.pk%}">Remove</a>
-                    {% comment %} {% if product.value > 0 %}
-                        <a class="w-[10rem] h-[2rem] rounded-full bg-[white] text-[black] text-center pt-1" href="{% url 'cart' user.id %}">Go to cart</a>
-                    {% else %}
-                        <a class="w-[10rem] h-[2rem] rounded-full bg-[white] text-[black] text-center pt-1" href="{% url 'addtocart_wishlist' user.id product.pk%}">Add to cart</a>
-                    {% endif %} {% endcomment %}
+                    {% comment %} <a href="{% url 'details' user.id product.id %}" class="bg-[white] text-black p-4 text-center rounded-full py-1">View Details</a> {% endcomment %}
                 </div>
             {% endfor %}
         {% else %}

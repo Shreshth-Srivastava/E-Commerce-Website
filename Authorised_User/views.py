@@ -56,14 +56,13 @@ def dec_count(request, id, pk):
     user.customer.save()
     return redirect('cart', user.id)
 
-def cartadd(request, userID, pk):
+def cartadd(request, userid, pk):
     product = Product.objects.get(pk=pk)
-    user = Customer.objects.get(userID=userID)
-    product.value += 1
-    user.cart += product.price
-    product.save()
-    user.save()
-    return redirect('category2', user.userID, product.category)
+    user = User.objects.get(id=userid)
+    OrderItem.objects.create(user=user,order=None,product=product,quantity=1,price=product.price)
+    user.customer.cart += product.price
+    user.customer.save()
+    return redirect('details', user.id, product.id)
 
 def cartremove(request, userid, itemid):
     item = OrderItem.objects.get(id=itemid)
@@ -73,15 +72,13 @@ def cartremove(request, userid, itemid):
     item.delete()
     return redirect('cart', userid)
 
-def cartadd_wislist(request, userID, pk):
+def cartadd_wislist(request, userid, pk):
     product = Product.objects.get(pk=pk)
-    user = Customer.objects.get(userID=userID)
-    product.value += 1
-    user.cart += 1
-    user.orderPrice += product.price
-    product.save()
-    user.save()
-    return redirect('wishlist', user.userID)
+    user = User.objects.get(id=userid)
+    OrderItem.objects.create(user=user,order=None,product=product,quantity=1,price=product.price)
+    user.customer.cart += product.price
+    user.customer.save()
+    return redirect('wishlist', user.id)
 
 def AddToWishlist(request, id, pk):
     product = Product.objects.get(pk=pk)
@@ -120,7 +117,7 @@ def Wishlist(request, id):
     wishlistitems = WishlistItem.objects.filter(user=user)
     context = {
         'products' : wishlistitems,
-        'user' : user
+        'user' : user,
     }
     return render(request,'Auth/wishlist.html',context)
 
@@ -158,9 +155,12 @@ def Details(request, user_id, product_id):
     product = Product.objects.get(id = product_id)
     user_wishlist = WishlistItem.objects.filter(user=user)
     wishlist = user_wishlist.filter(name=product.name)
+    user_cart = OrderItem.objects.filter(user=user)
+    cart = user_cart.filter(product=product)
     context = {
         'user': user,
         'product': product,
-        'wishlist': wishlist
+        'wishlist': wishlist,
+        'cart': cart
     }
     return render(request,'Auth/details.html',context)
