@@ -9,7 +9,7 @@
       <h3>₹{{product.price}}</h3>
     </div>
     <a
-      data-url1="{% url 'addtowishlist' user.id product.id %}"
+      data-url1="{% url 'addtowishlist_category' user.id product.id %}"
       data-product_name="{{product.name}}"
       data-category="{{product.category}}"
       id="Wishlist"

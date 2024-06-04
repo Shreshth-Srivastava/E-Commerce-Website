@@ -86,14 +86,19 @@ def AddToWishlist(request, id, pk):
     product = Product.objects.get(pk=pk)
     user = User.objects.get(id=id)
     WishlistItem.objects.create(user=user, name=product.name, price=product.price, img=product.img)
-    # return redirect('details', user.id, product.id)
-    return redirect('category2', user.id, product.category)
+    return redirect('details', user.id, product.id)
 
 def RemoveFromWishlist(request, id, pk):
     user = User.objects.get(id=id)
     wishlistitem = WishlistItem.objects.get(pk=pk)
     wishlistitem.delete()
     return redirect('wishlist', user.id)
+
+def AddToWishlist_category(request, id, pk):
+    product = Product.objects.get(pk=pk)
+    user = User.objects.get(id=id)
+    WishlistItem.objects.create(user=user, name=product.name, price=product.price, img=product.img)
+    return redirect('category2', user.id, product.category)
 
 def RemoveFromWishlist_category(request, pk, category):
     user = request.user
@@ -141,6 +146,10 @@ def Category(request, id ,category):
 
 def wishlist_json(request):
     data = list(WishlistItem.objects.filter(user=request.user).values())
+    return JsonResponse(data, safe=False)
+
+def product_json(request):
+    data = list(Product.objects.values())
     return JsonResponse(data, safe=False)
 
 def Details(request, user_id, product_id):

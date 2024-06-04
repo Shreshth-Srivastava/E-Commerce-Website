@@ -10,7 +10,7 @@
                     <p>{{product.name}}</p>
                     <p><strong>₹{{product.price}}</strong></p>
                     <a class="w-[5rem] h-[2rem] rounded-full bg-[white] text-[black] text-center pt-1" href="{% url 'removefromwishlist' user.id product.pk%}">Remove</a>
-                    {% comment %} <a href="{% url 'details' user.id product.id %}" class="bg-[white] text-black p-4 text-center rounded-full py-1">View Details</a> {% endcomment %}
+                    <a data-userid="{{user.id}}" data-name="{{product.name}}" class="Details bg-[white] text-black p-4 text-center rounded-full py-1 cursor-pointer">View Details</a>
                 </div>
             {% endfor %}
         {% else %}
@@ -20,4 +20,5 @@
         {% endif %}
     </div>
 </div>
+<script src="{% static "script/wishlist.js" %}"></script>
 {% endblock content %}

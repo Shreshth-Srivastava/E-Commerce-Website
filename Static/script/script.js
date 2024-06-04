@@ -38,18 +38,18 @@ wishlist.forEach((item) => {
     var url1 = item.dataset.url1
     var url2 = "removefromwishlist_category"
     var product_name = item.dataset.product_name
-    var url = "http://127.0.0.1:8000/json/"
+    var url = "http://127.0.0.1:8000/wishlist/json/"
     var category = item.dataset.category
     var pk = -1
     var flag = false
-    console.log(`url1: http://127.0.0.1:8000/${url1}`)
-    console.log(`url2: http://127.0.0.1:8000/${url2}`)
+    // console.log(`url1: http://127.0.0.1:8000/${url1}`)
+    // console.log(`url2: http://127.0.0.1:8000/${url2}`)
     fetch(url)
         .then((response) =>{
             return response.json()
         })
         .then((data) =>{
-            console.log(data)
+            // console.log(data)
             data.forEach(item => {
                 if(product_name == item.name){
                     pk = item.id

@@ -12,6 +12,7 @@ urlpatterns = [
     path('increase/<int:id>/<int:pk>/', views.inc_count, name='increase'),
     path('decrease/<int:id>/<int:pk>/', views.dec_count, name='decrease'),
     path('addtowishlist/<int:id>/<int:pk>/', views.AddToWishlist, name='addtowishlist'),
+    path('addtowishlist_category/<int:id>/<int:pk>/', views.AddToWishlist_category, name='addtowishlist_category'),
     path('removefromwishlist/<int:id>/<int:pk>/', views.RemoveFromWishlist, name='removefromwishlist'),
     path('removefromwishlist_category/<int:pk>/<str:category>/', views.RemoveFromWishlist_category, name='removefromwishlist_category'),
     path('wishlist/<int:id>/', views.Wishlist, name='wishlist'),
@@ -19,5 +20,6 @@ urlpatterns = [
     path('checkout/<int:id>/', views.Checkout, name='checkout'),
     path('category/<int:id>/<str:category>/', views.Category, name='category2'),
     path('category/<int:user_id>/<int:product_id>', views.Details, name='details'),
-    path('json/', views.wishlist_json, name='wishlistJSON'),
+    path('wishlist/json/', views.wishlist_json, name='wishlistJSON'),
+    path('product/json/', views.product_json, name='productJSON'),
 ]
