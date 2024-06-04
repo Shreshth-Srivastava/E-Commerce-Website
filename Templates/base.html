@@ -35,7 +35,8 @@
                         href="{% url 'cart' user.id %}"><span class="material-symbols-outlined"> shopping_cart </span></a>
                     <a href="{% url 'logout' %}" class="ml-1 p-1 px-2 bg-yellow-500 cursor-pointer rounded-full">Log-out</a>
                 {% else %}
-                    <a href="{% url 'login' %}" class="p-1 px-2 bg-yellow-500 cursor-pointer rounded-full">Log in</a>
+                    <a href="{% url 'signup' %}" class="p-1 px-2 bg-yellow-600 cursor-pointer rounded-full mr-2">Sign Up</a>
+                    <a href="{% url 'login' %}" class="p-1 px-2 bg-yellow-600 cursor-pointer rounded-full">Log in</a>
                 {% endif %}
             </div>
         </div>

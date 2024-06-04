@@ -15,8 +15,8 @@
             <h1 class='text-4xl font-bold'>Login</h1>
             <form action="{% url 'login' %}" method='POST' class='w-full h-1/2 flex flex-col'>
                 {% csrf_token %}
-                <label class='mb-4'>UserID</label>
-                <input class='text-black px-2' type="text" name="userID" placeholder="UserID" Required>
+                <label class='mb-4'>Username</label>
+                <input class='text-black px-2' type="text" name="username" placeholder="Username" Required>
                 <br>
                 <label class='mb-4'>Password</label>
                 <input class='text-black px-2' type="password" name="password" placeholder="Enter your password" Required>

@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from App.models import Product, Customer, WishlistItem, Order, OrderItem
 from django.contrib.auth import authenticate,login,logout
 from django.http import JsonResponse
+from django.contrib import messages
 import json
 
 # Create your views here.
@@ -10,20 +11,64 @@ import json
 def mylogin(request):
     customers = Customer.objects.all()
     if(request.method == "POST"):
-        userID = request.POST["userID"]
+        username = request.POST["username"]
         password = request.POST["password"]
         for customer in customers:
-            if((userID == customer.userID) & (password == customer.password)):
+            if((username == customer.username) & (password == customer.password)):
                 myuser = customer.user
                 user = authenticate(username=myuser.username, password=password)
                 if user is not None:
                     login(request, myuser)
                     return redirect('home2', myuser.id)
                 else:
-                    get_object_or_404(Customer, userID = userID)
+                    get_object_or_404(Customer, username = username)
             else:
-                get_object_or_404(Customer, userID = userID)
+                get_object_or_404(Customer, username = username)
     return render(request, 'login.html')
+
+def mysignup(request):
+    if request.method == "POST":
+        # username = request.POST.get("username") --> First way
+        username = request.POST["username"]
+        fname = request.POST["fname"]
+        lname = request.POST["lname"]
+        email = request.POST["email"]
+        password = request.POST["password"]
+        confirm = request.POST["confirm"]
+
+        if User.objects.filter(username=username):
+            messages.error(request,"Username already taken !")
+            return redirect("signup")
+        
+        if User.objects.filter(email=email):
+            messages.error(request,"Email already registered !")
+            return redirect("signup")
+
+        if password != confirm:
+            messages.error(request,"Entered passwords do not match !")
+            return redirect("signup")
+
+        if len(username)>20:
+            messages.error(request,"Username must be under 20 characters !")
+            return redirect("signup")
+
+        # if not username.isalnum():
+        #     messages.error(request,"Username is not alpha numeric !")
+        #     return redirect("signup")
+
+        myuser = User.objects.create_user(username,email,password)
+        myuser.first_name = fname
+        myuser.last_name = lname
+        myuser.is_active = True
+        myuser.is_staff = True
+        myuser.save()
+
+        newcustomer = Customer.objects.create(user=myuser, username=username, password=password, cart=0, first_name=fname, last_name=lname)
+        newcustomer.save()
+        # messages.success(request,"New user created, I have sent you a confirmation email, confirm your account to activate it")
+        return redirect('login')
+    
+    return render(request,'signup.html')
 
 def mylogout(request):
     logout(request)
