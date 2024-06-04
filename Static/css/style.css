@@ -106,7 +106,7 @@ button {
 #Wishlist {
   width: 16rem;
   height: 2rem;
-  background-color: hsl(120, 100%, 40%);
+  background-color: white;
   margin-bottom: -1rem;
 }
 #Add {

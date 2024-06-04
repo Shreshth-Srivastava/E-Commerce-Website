@@ -1,16 +1,27 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 <div class="main">
-    {% for product in products %}
-    <div id="container">
-      <img src="{{product.img}}" alt="Placeholder" id="index_images"/>
-      <br />
-      <div class="mb-2" id="details">
-        <h3>{{product.name}}</h3>
-        <h3>₹{{product.price}}</h3>
-      </div>
-      <a href="{% url 'details' user.id product.id %}" class="bg-[blue] w-[16rem] h-8 text-center rounded-full py-1">View Details</a>
+  {% for product in products %}
+  <div id="container">
+    <img src="{{product.img}}" alt="Placeholder" id="index_images" />
+    <br />
+    <div class="mb-2" id="details">
+      <h3>{{product.name}}</h3>
+      <h3>₹{{product.price}}</h3>
     </div>
-    {% endfor %}
+    <a
+      data-url1="{% url 'addtowishlist' user.id product.id %}"
+      data-product_name="{{product.name}}"
+      data-category="{{product.category}}"
+      id="Wishlist"
+      class=" text-black w-[16rem] h-8 text-center rounded-full py-1 cursor-pointer"
+      ><span class="material-symbols-outlined"> favorite </span></a
+    >
+    <a
+      href="{% url 'details' user.id product.id %}"
+      class="bg-[blue] w-[16rem] h-8 text-center rounded-full py-1 mt-6"
+      >View Details</a
+    >
   </div>
+  {% endfor %}
+</div>
 {% endblock %}

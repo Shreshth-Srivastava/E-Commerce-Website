@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from App.models import Product, Customer, WishlistItem, Order, OrderItem
 from django.contrib.auth import authenticate,login,logout
+from django.http import JsonResponse
+import json
 
 # Create your views here.
 
@@ -84,7 +86,8 @@ def AddToWishlist(request, id, pk):
     product = Product.objects.get(pk=pk)
     user = User.objects.get(id=id)
     WishlistItem.objects.create(user=user, name=product.name, price=product.price, img=product.img)
-    return redirect('details', user.id, product.id)
+    # return redirect('details', user.id, product.id)
+    return redirect('category2', user.id, product.category)
 
 def RemoveFromWishlist(request, id, pk):
     user = User.objects.get(id=id)
@@ -92,25 +95,11 @@ def RemoveFromWishlist(request, id, pk):
     wishlistitem.delete()
     return redirect('wishlist', user.id)
 
-'''def AddToWishlist(request, id, pk):
-    product = Product.objects.get(pk=pk)
-    user = User.objects.get(id=id)
-    customer = user.customer
-    product.wishlist = True
-    customer.wishlist += 1
-    product.save()
-    customer.save()
-    return redirect('category2', user.id, product.category)'''
-
-'''def RemoveFromWishlist(request, id, pk):
-    product = Product.objects.get(pk=pk)
-    user = User.objects.get(id=id)
-    customer = user.customer
-    product.wishlist = False
-    user.wishlist -= 1
-    product.save()
-    user.save()
-    return redirect('wishlist', user.id)'''
+def RemoveFromWishlist_category(request, pk, category):
+    user = request.user
+    wishlistitem = WishlistItem.objects.get(pk=pk)
+    wishlistitem.delete()
+    return redirect('category2', user.id, category)
 
 def Wishlist(request, id):
     user = User.objects.get(id=id)
@@ -149,6 +138,10 @@ def Category(request, id ,category):
         'wishlist': wishlist,
     }
     return render(request,'Auth/category.html',context)
+
+def wishlist_json(request):
+    data = list(WishlistItem.objects.filter(user=request.user).values())
+    return JsonResponse(data, safe=False)
 
 def Details(request, user_id, product_id):
     user = User.objects.get(id = user_id)
