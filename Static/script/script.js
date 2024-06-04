@@ -20,18 +20,29 @@ category.addEventListener('click',()=>{
     }
 })
 
-// const banner_container = document.querySelector('#banner_container');
-// const banner = document.querySelector('.banner');
-// const arr_lft = document.querySelector('#arrow_left');
-// const arr_rgt = document.querySelector('#arrow_right');
+let slideIndex = 1;
+showSlides(slideIndex);
 
-// arr_lft.addEventListener('click',()=>{
-//     if(banner_container.pageXOffset != undefined){
-//         if(banner_container.pageXOffset >= banner.offsetWidth){
-//             banner_container.pageXOffset =- banner.offsetWidth;
-//         }
-//     }
-// })
+// Next/previous controls
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+// Thumbnail image controls
+// function currentSlide(n) {
+//   showSlides(slideIndex = n);
+// }
+
+function showSlides(n) {
+  let i;
+  let slides = document.getElementsByClassName("banner");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  slides[slideIndex-1].style.display = "block";
+}
 
 wishlist = document.querySelectorAll('#Wishlist');
 wishlist.forEach((item) => {

@@ -135,3 +135,20 @@ button {
 #login_pg{
   font-family: Gilroy,sans-serif;
 }
+
+#banner_container::-webkit-scrollbar{
+  display: none;
+}
+
+.banner{
+  transition: fade 1s linear;
+}
+
+@keyframes fade{
+  from {
+    opacity: .4
+  }
+  to {
+    opacity: 1
+  }
+}

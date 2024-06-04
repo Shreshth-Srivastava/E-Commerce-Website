@@ -81,7 +81,7 @@ def index2(request, id):
         'products' : products,
         'user' : user
     }
-    return render(request, 'Auth/index.html', context)
+    return render(request, 'index.html', context)
 
 def inc_count(request, id, pk):
     item = OrderItem.objects.get(pk=pk)
@@ -170,8 +170,8 @@ def Cart(request, id):
     }
     return render(request,'Auth/cart.html',context)
 
-def Checkout(request, userID):
-    user = Customer.objects.get(userID=userID)
+def Checkout(request, userid):
+    user = User.objects.get(id=userid)
     context={
         'user': user,
     }
