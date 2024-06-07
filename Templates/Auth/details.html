@@ -12,7 +12,7 @@
         <div class="description py-8">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum possimus, deleniti dignissimos recusandae, officiis ea explicabo et ad itaque exercitationem vel ipsam tempore tenetur quos, voluptate debitis. Porro nesciunt excepturi natus numquam, tenetur qui sapiente nemo, molestias aliquid impedit quisquam deleniti ea nihil, iste vel adipisci vitae aspernatur nam molestiae.</div>
         <section class="pt-4 flex justify-start items-center">
             {% if cart %}
-                <a href="{% url 'cart' user.id %}" class="bg-white w-[16rem] h-8 text-black text-center rounded-full p-3 mr-4">Go to cart</a>
+                <a href="{% url 'cart' user.id %}" class="bg-white text-black text-center rounded-full p-2 mr-4">Go to cart</a>
             {% else %}
                 <a href="{% url 'addtocart' user.id product.id %}" class="bg-white text-black text-center rounded-full p-2 mr-4">Add to cart</a>
             {% endif %}
