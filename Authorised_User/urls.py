@@ -16,6 +16,7 @@ urlpatterns = [
     path('addtowishlist_category/<int:id>/<int:pk>/', views.AddToWishlist_category, name='addtowishlist_category'),
     path('removefromwishlist/<int:id>/<int:pk>/', views.RemoveFromWishlist, name='removefromwishlist'),
     path('removefromwishlist_category/<int:pk>/<str:category>/', views.RemoveFromWishlist_category, name='removefromwishlist_category'),
+    path('removefromwishlist_details/<int:pk>/<int:id>/', views.RemoveFromWishlist_Details, name='removefromwishlist_details'),
     path('wishlist/<int:id>/', views.Wishlist, name='wishlist'),
     path('cart/<int:id>/', views.Cart, name='cart'),
     path('checkout/<int:userid>/', views.Checkout, name='checkout'),

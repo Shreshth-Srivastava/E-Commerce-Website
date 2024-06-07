@@ -133,6 +133,13 @@ def AddToWishlist(request, id, pk):
     WishlistItem.objects.create(user=user, name=product.name, price=product.price, img=product.img)
     return redirect('details', user.id, product.id)
 
+def RemoveFromWishlist_Details(request, pk, id):
+    product = Product.objects.get(pk=pk)
+    user = User.objects.get(id=id)
+    item = WishlistItem.objects.filter(user=user, name=product.name)
+    item.delete()
+    return redirect('details', user.id, product.id)
+
 def RemoveFromWishlist(request, id, pk):
     user = User.objects.get(id=id)
     wishlistitem = WishlistItem.objects.get(pk=pk)

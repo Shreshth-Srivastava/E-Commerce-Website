@@ -1,4 +1,5 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
+{% load static %} {% block content %}
 <div class="main">
   {% for product in products %}
   <div id="container">
@@ -23,5 +24,6 @@
     >
   </div>
   {% endfor %}
+  <script src="{% static 'script/category.js' %}"></script>
 </div>
 {% endblock %}
