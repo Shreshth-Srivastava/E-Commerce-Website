@@ -21,6 +21,7 @@ class Customer(models.Model):
     username = models.CharField(default = "User",null = False, max_length = 200)
     password = models.CharField(default = None, null = True, max_length=15)
     cart = models.IntegerField(default = 0)
+    num_items = models.IntegerField(default=0)
     first_name = models.CharField(max_length=20, null=True, blank=True)
     last_name = models.CharField(max_length=20, null=True, blank=True)
     # userID = models.CharField(default = None, null = True, blank = True, max_length=10)
@@ -53,6 +54,12 @@ class Order(models.Model):
     def get_cart_total(self):
         orderitems = self.orderitem_set.all()
         total = sum([item.get_total for item in orderitems])
+        return total
+    
+    @property
+    def get_cart_items(self):
+        orderitems = self.orderitem_set.all()
+        total = sum([item.quantity for item in orderitems])
         return total
     
 class OrderItem(models.Model):

@@ -87,7 +87,7 @@ def inc_count(request, id, pk):
     item = OrderItem.objects.get(pk=pk)
     user = User.objects.get(id=id)
     item.quantity += 1
-    # user.cart += 1
+    user.customer.num_items += 1
     user.customer.cart += item.price
     item.save()
     user.customer.save()
@@ -97,7 +97,7 @@ def dec_count(request, id, pk):
     item = OrderItem.objects.get(pk=pk)
     user = User.objects.get(id=id)
     item.quantity -= 1
-    # user.cart -= 1
+    user.customer.num_items -= 1
     user.customer.cart -= item.price
     item.save()
     user.customer.save()
@@ -108,6 +108,7 @@ def cartadd(request, userid, pk):
     user = User.objects.get(id=userid)
     OrderItem.objects.create(user=user,order=None,product=product,quantity=1,price=product.price)
     user.customer.cart += product.price
+    user.customer.num_items += 1
     user.customer.save()
     return redirect('details', user.id, product.id)
 
@@ -115,6 +116,7 @@ def cartremove(request, userid, itemid):
     item = OrderItem.objects.get(id=itemid)
     user = User.objects.get(id=userid)
     user.customer.cart -= item.price
+    user.customer.num_items -= 1
     user.customer.save()
     item.delete()
     return redirect('cart', userid)
@@ -124,6 +126,7 @@ def cartadd_wislist(request, userid, pk):
     user = User.objects.get(id=userid)
     OrderItem.objects.create(user=user,order=None,product=product,quantity=1,price=product.price)
     user.customer.cart += product.price
+    user.customer.num_items -= 1
     user.customer.save()
     return redirect('wishlist', user.id)
 
@@ -179,7 +182,9 @@ def Cart(request, id):
 
 def Checkout(request, userid):
     user = User.objects.get(id=userid)
+    items = OrderItem.objects.filter(user=user)
     context={
+        'items':items,
         'user': user,
     }
     return render(request,'Auth/checkout.html',context)
