@@ -16,19 +16,26 @@
 <body>
     <div class="relative w-[100vw] h-[100vh] bg-[#121212] flex flex-col item-start justify-start gap-2 px-4">
         <div class="w-full flex">
-            <div class="left w-1/2 text-white p-4 pt-8 text-xl flex flex-col items-start justify-start gap-2">
-                <div class="PayPal cursor-pointer w-full bg-[rgb(40,40,40)] rounded-lg p-4 flex items-center justify-between">
-                    <p>PayPal</p>
-                    <span class="material-symbols-outlined">
-                        keyboard_arrow_down
-                    </span>
-                </div>
-                <div class="Card cursor-pointer w-full bg-[rgb(40,40,40)] rounded-lg p-4 flex items-center justify-between">
-                    <p>Credit/Debit Card</p>
-                    <span class="material-symbols-outlined">
-                        keyboard_arrow_down
-                    </span>
-                </div>
+            <div class="left w-1/2 text-white p-4 pt-8 text-xl">
+                <form class="w-full flex flex-col items-start justify-start gap-2" action="{% url 'checkout' user.id %}" method="POST">
+                    {% csrf_token %}
+                    <div class="PayPal w-full bg-[rgb(40,40,40)] rounded-lg p-4 flex items-center justify-between">
+                        <label for="PayPal" class="w-full cursor-pointer w-full">PayPal</label>
+                        <input type="radio" name="payment" id="PayPal">
+                    </div>
+                    <div class="Card w-full bg-[rgb(40,40,40)] rounded-lg p-4 flex items-center justify-between">
+                        <label for="Card" class="w-full cursor-pointer w-full">Card</label>
+                        <input type="radio" name="payment" id="Card">
+                    </div>
+                    <div class="Cash w-full bg-[rgb(40,40,40)] rounded-lg p-4 flex items-center justify-between">
+                        <label for="Cash" class="w-full cursor-pointer w-full">Cash</label>
+                        <input type="radio" name="payment" id="Cash">
+                    </div>
+                    <div class="w-full flex items-center justify-between">
+                        <a href="{% url 'cart' user.id %}" class="w-[35%] h-full py-2 bg-blue-500 text-center text-xl rounded-lg">Go back to cart</a>
+                        <button class="w-[35%] h-full py-2 bg-green-500 text-center text-xl rounded-lg">Submit</button>
+                    </div>
+                </form>
             </div>
             <div class="right w-1/2 bg-red text-white pr-4">
                 <div class="Info bg-[rgb(40,40,40)] text-center p-8 px-3 mt-8 rounded-lg">
@@ -51,7 +58,6 @@
                 </div>
             </div>
         </div>
-        <a href="{% url 'cart' user.id %}" class="w-full mt-12 p-1 bg-blue-500 text-center text-xl rounded-full">Go back to cart</a>
     </div>
 </body>
 </html>
