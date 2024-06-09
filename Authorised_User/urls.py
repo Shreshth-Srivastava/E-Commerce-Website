@@ -22,6 +22,7 @@ urlpatterns = [
     path('checkout/<int:userid>/', views.Checkout, name='checkout'),
     path('category/<int:id>/<str:category>/', views.Category, name='category2'),
     path('category/<int:user_id>/<int:product_id>', views.Details, name='details'),
+    path('placed/<int:userid>/', views.OrderPlaced, name='placed'),
     path('wishlist/json/', views.wishlist_json, name='wishlistJSON'),
     path('product/json/', views.product_json, name='productJSON'),
 ]

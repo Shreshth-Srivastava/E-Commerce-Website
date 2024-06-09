@@ -187,7 +187,23 @@ def Checkout(request, userid):
         'items':items,
         'user': user,
     }
+
+    if(request.method == "POST"):
+        payment = request.POST['payment']
+        myorder = Order.objects.create(user=user)
+        myorder.transaction_id = myorder.id
+        for item in items:
+            item.order = myorder
+        return redirect('placed', user.id)
+
     return render(request,'Auth/checkout.html',context)
+
+def OrderPlaced(request,userid):
+    user = User.objects.get(id=userid)
+    context = {
+        'user': user,
+    }
+    return render(request,'Auth/placed.html',context)
 
 def Category(request, id ,category):
     user = User.objects.get(id=id)
