@@ -20,10 +20,9 @@ class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     username = models.CharField(default = "User",null = False, max_length = 200)
     password = models.CharField(default = None, null = True, max_length=15)
-    cart = models.IntegerField(default = 0)
-    num_items = models.IntegerField(default=0)
     first_name = models.CharField(max_length=20, null=True, blank=True)
     last_name = models.CharField(max_length=20, null=True, blank=True)
+    order_num = models.IntegerField(null=True, blank=True)
     # userID = models.CharField(default = None, null = True, blank = True, max_length=10)
     # orderPrice = models.IntegerField(default = 0)
     # wishlist = models.IntegerField(default = 0)
@@ -46,6 +45,8 @@ class Order(models.Model):
     date_ordered = models.DateTimeField(auto_now_add=True)
     completed = models.BooleanField(default=False)
     transaction_id = models.CharField(max_length=200 ,null=True, blank=True)
+    # cart = models.IntegerField(default = 0)
+    # num_items = models.IntegerField(default=0)
 
     def __str__(self):
         return str(self.id)
@@ -63,7 +64,7 @@ class Order(models.Model):
         return total
     
 class OrderItem(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
+    # user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, blank=True, null=True)
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True)
     quantity = models.IntegerField(default=1)
