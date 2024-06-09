@@ -57,13 +57,14 @@ def mysignup(request):
         #     return redirect("signup")
 
         myuser = User.objects.create_user(username,email,password)
+        myorder = Order.objects.create(user=myuser,transaction_id=fname+str(myuser.id))
         myuser.first_name = fname
         myuser.last_name = lname
         myuser.is_active = True
         myuser.is_staff = True
         myuser.save()
 
-        newcustomer = Customer.objects.create(user=myuser, username=username, password=password, cart=0, first_name=fname, last_name=lname)
+        newcustomer = Customer.objects.create(user=myuser, username=username, password=password, first_name=fname, last_name=lname, order_num = myorder.id)
         newcustomer.save()
         # messages.success(request,"New user created, I have sent you a confirmation email, confirm your account to activate it")
         return redirect('login')
@@ -86,9 +87,11 @@ def index2(request, id):
 def inc_count(request, id, pk):
     item = OrderItem.objects.get(pk=pk)
     user = User.objects.get(id=id)
+    user_order = Order.objects.get(id=user.customer.order_num)
     item.quantity += 1
-    user.customer.num_items += 1
-    user.customer.cart += item.price
+    # user_order.num_items += 1
+    user_order = Order.objects.get(id=user.customer.order_num)
+    # user_order.cart += item.price
     item.save()
     user.customer.save()
     return redirect('cart', user.id)
@@ -97,8 +100,9 @@ def dec_count(request, id, pk):
     item = OrderItem.objects.get(pk=pk)
     user = User.objects.get(id=id)
     item.quantity -= 1
-    user.customer.num_items -= 1
-    user.customer.cart -= item.price
+    user_order = Order.objects.get(id=user.customer.order_num)
+    # user_order.cart -= item.price
+    # user_order.num_items -= 1
     item.save()
     user.customer.save()
     return redirect('cart', user.id)
@@ -106,17 +110,19 @@ def dec_count(request, id, pk):
 def cartadd(request, userid, pk):
     product = Product.objects.get(pk=pk)
     user = User.objects.get(id=userid)
-    OrderItem.objects.create(user=user,order=None,product=product,quantity=1,price=product.price)
-    user.customer.cart += product.price
-    user.customer.num_items += 1
+    user_order = Order.objects.get(id=user.customer.order_num)
+    OrderItem.objects.create(order=user_order,product=product,quantity=1,price=product.price)
+    # user_order.cart += product.price
+    # user_order.num_items += 1
     user.customer.save()
     return redirect('details', user.id, product.id)
 
 def cartremove(request, userid, itemid):
     item = OrderItem.objects.get(id=itemid)
     user = User.objects.get(id=userid)
-    user.customer.cart -= item.price
-    user.customer.num_items -= 1
+    user_order = Order.objects.get(id=user.customer.order_num)
+    # user_order.cart -= item.price
+    # user_order.num_items -= 1
     user.customer.save()
     item.delete()
     return redirect('cart', userid)
@@ -124,9 +130,10 @@ def cartremove(request, userid, itemid):
 def cartadd_wislist(request, userid, pk):
     product = Product.objects.get(pk=pk)
     user = User.objects.get(id=userid)
-    OrderItem.objects.create(user=user,order=None,product=product,quantity=1,price=product.price)
-    user.customer.cart += product.price
-    user.customer.num_items -= 1
+    user_order = Order.objects.get(id=user.customer.order_num)
+    OrderItem.objects.create(order=user_order,product=product,quantity=1,price=product.price)
+    # user_order.cart += product.price
+    # user_order.num_items -= 1
     user.customer.save()
     return redirect('wishlist', user.id)
 
@@ -173,16 +180,19 @@ def Wishlist(request, id):
 def Cart(request, id):
     # products = Product.objects.all()
     user = User.objects.get(id=id)
-    items = OrderItem.objects.filter(user=user)
+    user_order = Order.objects.get(id=user.customer.order_num)
+    items = OrderItem.objects.filter(order=user_order)
     context = {
         'items' : items,
-        'user' : user
+        'user' : user,
+        'order' : user_order
     }
     return render(request,'Auth/cart.html',context)
 
 def Checkout(request, userid):
     user = User.objects.get(id=userid)
-    items = OrderItem.objects.filter(user=user)
+    user_order = Order.objects.get(id=user.customer.order_num)
+    items = OrderItem.objects.filter(order=user_order)
     context={
         'items':items,
         'user': user,
@@ -191,9 +201,10 @@ def Checkout(request, userid):
     if(request.method == "POST"):
         payment = request.POST['payment']
         myorder = Order.objects.create(user=user)
-        myorder.transaction_id = myorder.id
-        for item in items:
-            item.order = myorder
+        myorder.transaction_id = transaction_id=user.customer.first_name + str(myorder.id)
+        user.customer.order_num = myorder.id
+        user.customer.save()
+        myorder.save()
         return redirect('placed', user.id)
 
     return render(request,'Auth/checkout.html',context)
@@ -229,8 +240,9 @@ def Details(request, user_id, product_id):
     user = User.objects.get(id = user_id)
     product = Product.objects.get(id = product_id)
     user_wishlist = WishlistItem.objects.filter(user=user)
+    user_order = Order.objects.get(id=user.customer.order_num)
     wishlist = user_wishlist.filter(name=product.name)
-    user_cart = OrderItem.objects.filter(user=user)
+    user_cart = OrderItem.objects.filter(order=user_order)
     cart = user_cart.filter(product=product)
     context = {
         'user': user,
