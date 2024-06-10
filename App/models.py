@@ -45,6 +45,8 @@ class Order(models.Model):
     date_ordered = models.DateTimeField(auto_now_add=True)
     completed = models.BooleanField(default=False)
     transaction_id = models.CharField(max_length=200 ,null=True, blank=True)
+    placed = models.BooleanField(default=False)
+    payment = models.CharField(max_length=10, blank=True, null=True)
     # cart = models.IntegerField(default = 0)
     # num_items = models.IntegerField(default=0)
 
