@@ -21,15 +21,15 @@
                     {% csrf_token %}
                     <div class="PayPal w-full bg-[rgb(40,40,40)] rounded-lg p-4 flex items-center justify-between">
                         <label for="PayPal" class="w-full cursor-pointer w-full">PayPal</label>
-                        <input type="radio" name="payment" id="PayPal">
+                        <input type="radio" name="payment" id="PayPal" value="PayPal">
                     </div>
                     <div class="Card w-full bg-[rgb(40,40,40)] rounded-lg p-4 flex items-center justify-between">
                         <label for="Card" class="w-full cursor-pointer w-full">Card</label>
-                        <input type="radio" name="payment" id="Card">
+                        <input type="radio" name="payment" id="Card" value="Card">
                     </div>
                     <div class="Cash w-full bg-[rgb(40,40,40)] rounded-lg p-4 flex items-center justify-between">
                         <label for="Cash" class="w-full cursor-pointer w-full">Cash</label>
-                        <input type="radio" name="payment" id="Cash">
+                        <input type="radio" name="payment" id="Cash" value="Cash">
                     </div>
                     <div class="w-full flex items-center justify-between">
                         <a href="{% url 'cart' user.id %}" class="w-[35%] h-full py-2 bg-blue-500 text-center text-xl rounded-lg">Go back to cart</a>
@@ -49,9 +49,9 @@
                             </div>
                         </div>
                         <div class="flex justify-between">
-                            <div class="w-1/2 h-full text-center text-2xl pt-5">{{ user.customer.num_items }}</div>
+                            <div class="w-1/2 h-full text-center text-2xl pt-5">{{ order.get_cart_items }}</div>
                             <div class="w-1/2 h-full text-center text-2xl pt-5">
-                                ₹{{user.customer.cart}}
+                                ₹{{ order.get_cart_total }}
                             </div>
                         </div>
                     </div>
