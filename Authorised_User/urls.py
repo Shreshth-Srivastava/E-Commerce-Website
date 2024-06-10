@@ -23,6 +23,8 @@ urlpatterns = [
     path('category/<int:id>/<str:category>/', views.Category, name='category2'),
     path('category/<int:user_id>/<int:product_id>', views.Details, name='details'),
     path('placed/<int:userid>/', views.OrderPlaced, name='placed'),
+    path('orders/<int:userid>/', views.Orders, name='orders'),
+    path('order_details/<int:userid>/<int:orderid>/', views.Order_Details, name='order_details'),
     path('wishlist/json/', views.wishlist_json, name='wishlistJSON'),
     path('product/json/', views.product_json, name='productJSON'),
 ]

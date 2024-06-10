@@ -195,16 +195,21 @@ def Checkout(request, userid):
     items = OrderItem.objects.filter(order=user_order)
     context={
         'items':items,
+        'order': user_order,
         'user': user,
     }
 
     if(request.method == "POST"):
         payment = request.POST['payment']
+        old_order = Order.objects.get(user=user, id=user.customer.order_num)
+        old_order.placed = True
+        old_order.payment = payment
         myorder = Order.objects.create(user=user)
         myorder.transaction_id = transaction_id=user.customer.first_name + str(myorder.id)
         user.customer.order_num = myorder.id
         user.customer.save()
         myorder.save()
+        old_order.save()
         return redirect('placed', user.id)
 
     return render(request,'Auth/checkout.html',context)
@@ -251,3 +256,21 @@ def Details(request, user_id, product_id):
         'cart': cart
     }
     return render(request,'Auth/details.html',context)
+
+def Orders(request, userid):
+    user = User.objects.get(id=userid)
+    orders = Order.objects.filter(user=user, placed=True)
+    context={
+        'user': user,
+        'orders': orders,
+    }
+    return render(request,'Auth/orders.html',context)
+
+def Order_Details(request, userid, orderid):
+    user = User.objects.get(id=userid)
+    items = OrderItem.objects.filter(order=orderid)
+    context = {
+        'items': items,
+        'user': user
+    }
+    return render(request, 'Auth/order_details.html',context)
