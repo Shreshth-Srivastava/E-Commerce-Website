@@ -152,3 +152,7 @@ button {
     opacity: 1
   }
 }
+
+.Acc_list{
+  transition: .2s linear;
+}
