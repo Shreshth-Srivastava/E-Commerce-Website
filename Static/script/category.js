@@ -3,7 +3,8 @@ wishlist.forEach((item) => {
     var url1 = item.dataset.url1
     var url2 = "removefromwishlist_category"
     var product_name = item.dataset.product_name
-    var url = "http://127.0.0.1:8000/wishlist/json/"
+    var root_path = window.location.host
+    var url = `http://${root_path}/wishlist/json/`
     var category = item.dataset.category
     var pk = -1
     var flag = false
@@ -28,10 +29,10 @@ wishlist.forEach((item) => {
         })
     item.addEventListener('click',()=>{
         if(!flag){
-            window.location.href = `http://127.0.0.1:8000/${url1}`
+            window.location.href = `http://${root_path}/${url1}`
         }
         else{
-            window.location.href = `http://127.0.0.1:8000/${url2}/${pk}/${category}/`
+            window.location.href = `http://${root_path}/${url2}/${pk}/${category}/`
         }
     })
 });
