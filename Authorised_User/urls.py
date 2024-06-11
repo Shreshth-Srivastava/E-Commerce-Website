@@ -27,4 +27,5 @@ urlpatterns = [
     path('order_details/<int:userid>/<int:orderid>/', views.Order_Details, name='order_details'),
     path('wishlist/json/', views.wishlist_json, name='wishlistJSON'),
     path('product/json/', views.product_json, name='productJSON'),
+    path('orders/json/', views.orders_json, name='ordersJSON'),
 ]

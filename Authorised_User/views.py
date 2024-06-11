@@ -233,14 +233,6 @@ def Category(request, id ,category):
     }
     return render(request,'Auth/category.html',context)
 
-def wishlist_json(request):
-    data = list(WishlistItem.objects.filter(user=request.user).values())
-    return JsonResponse(data, safe=False)
-
-def product_json(request):
-    data = list(Product.objects.values())
-    return JsonResponse(data, safe=False)
-
 def Details(request, user_id, product_id):
     user = User.objects.get(id = user_id)
     product = Product.objects.get(id = product_id)
@@ -259,7 +251,8 @@ def Details(request, user_id, product_id):
 
 def Orders(request, userid):
     user = User.objects.get(id=userid)
-    orders = Order.objects.filter(user=user, placed=True)
+    all_orders = Order.objects.filter(user=user, placed=True)
+    orders = all_orders.order_by("-date_ordered")
     context={
         'user': user,
         'orders': orders,
@@ -274,3 +267,15 @@ def Order_Details(request, userid, orderid):
         'user': user
     }
     return render(request, 'Auth/order_details.html',context)
+
+def orders_json(request):
+    data = list(Order.objects.filter(user=request.user).values())
+    return JsonResponse(data, safe=False)
+
+def wishlist_json(request):
+    data = list(WishlistItem.objects.filter(user=request.user).values())
+    return JsonResponse(data, safe=False)
+
+def product_json(request):
+    data = list(Product.objects.values())
+    return JsonResponse(data, safe=False)
