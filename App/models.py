@@ -7,7 +7,8 @@ class Product(models.Model):
     # value = models.IntegerField(default=1)
     name = models.CharField(default = "Product",max_length=200)
     category = models.CharField(default = 'not defined', max_length = 50)
-    img = models.CharField(default = "#",max_length=200)
+    # img = models.CharField(default = "#",max_length=200)
+    img = models.ImageField(null=True, blank=True)
     price = models.IntegerField(default = 0)
     # value = models.IntegerField(default   = 0)
     # wishlist = models.BooleanField(default = False)
@@ -35,7 +36,8 @@ class WishlistItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     name = models.CharField(null=True, blank=True, max_length=50)
     price = models.IntegerField(default=0)
-    img = models.CharField(default = "#",max_length=200)
+    # img = models.CharField(default = "#",max_length=200)
+    img = models.ImageField(null=True, blank=True)
 
     def __str__(self):
         return self.name
