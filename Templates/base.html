@@ -16,7 +16,7 @@
 <body>
     <nav>
         {% if request.user.is_authenticated %}
-        <a href="{% url 'home2' user.id %}">ECom.</a>
+        <a href="{% url 'home2' %}">ECom.</a>
         {% else %}
         <a href="{% url 'home' %}">ECom.</a>
         {% endif %}
@@ -30,16 +30,16 @@
             <div class="relative flex items-center justify-center" id="navbar">
                 {% if request.user.is_authenticated %}
                 <a class="w-[4rem] h-[2rem] text-center py-1 mx-1 text-black bg-white rounded-full"
-                    href="{% url 'wishlist' user.id %}"><span class="material-symbols-outlined"> favorite </span></a>
+                    href="{% url 'wishlist' %}"><span class="material-symbols-outlined"> favorite </span></a>
                 <a class="w-[4rem] h-[2rem] text-center py-1 mx-1 text-black bg-white rounded-full"
-                    href="{% url 'cart' user.id %}"><span class="material-symbols-outlined"> shopping_cart </span></a>
+                    href="{% url 'cart' %}"><span class="material-symbols-outlined"> shopping_cart </span></a>
                 <div class="Acc w-[4rem] h-[2rem] text-center flex items-center justify-center py-1 mx-1 text-black bg-white rounded-full cursor-pointer"
                     href="#">
                     <span class="material-symbols-outlined">account_circle</span>
                     <span class="material-symbols-outlined pt-1" id="acc_arrow">keyboard_arrow_down</span>
                 </div>
                 <div class="Acc_list absolute z-[10] w-[6rem] h-0 opacity-0 bg-white text-center text-black top-[118%] right-[0%]">
-                    <a href="{% url 'orders' user.id %}">Orders</a>
+                    <a href="{% url 'orders' %}">Orders</a>
                     <a href="{% url 'logout' %}" class="border-t-2 border-gray-500">Log-out</a>
                 </div>
                 {% else %}
@@ -51,11 +51,11 @@
         <div
             class="categoryList text-xl absolute top-[100%] left-0 pt-12 px-40 w-full h-[0rem] opacity-0 overflow-hidden bg-[rgba(40,40,40,.95)] flex item-start justify-between">
             {% if request.user.is_authenticated %}
-            <a href="{% url 'category2' user.id 'Shoes' %}" class="h-[2rem]">Shoes</a>
-            <a href="{% url 'category2' user.id 'Electronics' %}" class="h-[2rem]">Electronics</a>
-            <a href="{% url 'category2' user.id 'Cosmetics' %}" class="h-[2rem]">Cosmetics</a>
-            <a href="{% url 'category2' user.id 'Watch' %}" class="h-[2rem]">Watch</a>
-            <a href="{% url 'category2' user.id 'Clothing Accessories' %}" class="h-[2rem]">Clothing Accessories</a>
+            <a href="{% url 'category2' 'Shoes' %}" class="h-[2rem]">Shoes</a>
+            <a href="{% url 'category2' 'Electronics' %}" class="h-[2rem]">Electronics</a>
+            <a href="{% url 'category2' 'Cosmetics' %}" class="h-[2rem]">Cosmetics</a>
+            <a href="{% url 'category2' 'Watch' %}" class="h-[2rem]">Watch</a>
+            <a href="{% url 'category2' 'Clothing Accessories' %}" class="h-[2rem]">Clothing Accessories</a>
             {% else %}
             <a href="{% url 'category1' 'Shoes' %}" class="h-[2rem]">Shoes</a>
             <a href="{% url 'category1' 'Electronics' %}" class="h-[2rem]">Electronics</a>
