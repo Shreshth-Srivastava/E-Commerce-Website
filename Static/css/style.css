@@ -71,7 +71,7 @@ button {
   margin: 1vw;
 }
 #index_images {
-  width: 50%;
+  width: 60%;
   aspect-ratio: 12/15;
   border-radius: 20px;
 }
@@ -104,10 +104,10 @@ button {
   justify-content: space-between;
 }
 #Wishlist {
-  width: 16rem;
-  height: 2rem;
+  /* width: 10%; */
+  /* height: 100%; */
   background-color: white;
-  margin-bottom: -1rem;
+  margin-bottom: 1rem;
 }
 #Add {
   width: 16rem;
