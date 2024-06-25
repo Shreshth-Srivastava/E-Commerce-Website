@@ -1,6 +1,5 @@
 details = document.querySelectorAll('.Details')
 details.forEach((item) => {
-    var userid = item.dataset.userid
     var product_name = item.dataset.name
     var root_path = window.location.host
     var url = `http://${root_path}/product/json/`
@@ -18,6 +17,6 @@ details.forEach((item) => {
         })
     })
     item.addEventListener('click', () => {
-        window.location.href = `http://${root_path}/category/${userid}/${pk}`
+        window.location.href = `http://${root_path}/category/${pk}`
     })
 })
