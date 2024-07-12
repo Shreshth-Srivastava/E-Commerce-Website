@@ -17,7 +17,7 @@
     <div class="relative w-[100vw] h-[100vh] bg-[#121212] flex flex-col item-start justify-start gap-2 px-4">
         <div class="w-full flex">
             <div class="left w-1/2 text-white p-4 pt-8 text-xl">
-                <form class="w-full flex flex-col items-start justify-start gap-2" action="{% url 'checkout' user.id %}" method="POST">
+                <form class="w-full flex flex-col items-start justify-start gap-2" action="{% url 'checkout' %}" method="POST">
                     {% csrf_token %}
                     <div class="PayPal w-full bg-[rgb(40,40,40)] rounded-lg p-4 flex items-center justify-between">
                         <label for="PayPal" class="w-full cursor-pointer w-full">PayPal</label>
@@ -32,7 +32,7 @@
                         <input type="radio" name="payment" id="Cash" value="Cash">
                     </div>
                     <div class="w-full flex items-center justify-between">
-                        <a href="{% url 'cart' user.id %}" class="w-[35%] h-full py-2 bg-blue-500 text-center text-xl rounded-lg">Go back to cart</a>
+                        <a href="{% url 'cart' %}" class="w-[35%] h-full py-2 bg-blue-500 text-center text-xl rounded-lg">Go back to cart</a>
                         <button class="w-[35%] h-full py-2 bg-green-500 text-center text-xl rounded-lg">Submit</button>
                     </div>
                 </form>
