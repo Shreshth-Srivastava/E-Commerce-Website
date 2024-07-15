@@ -5,7 +5,7 @@
 <div class="Items w-full h-full flex flex-col items-center justify-start gap-4 py-20 px-4">
 {% for item in items %}
     <div class="w-full h-[10rem] bg-[rgb(40,40,40)] rounded-lg flex items-center justify-between px-4 overflow-hidden">
-        <img class="rounded-lg w-[7rem] h-[85%]" src="{{item.product.img}}" alt="item-img">
+        <img class="rounded-lg w-[7rem] h-[85%]" src="{{item.product.img.url}}" alt="item-img">
         <p>{{item.name}}</p>
         <p class="w-[10rem]"><strong>Quantity: <span class="ml-2">{{item.quantity}}</span></strong></p>
         <p class="w-[10rem]"><strong>Total Price: <span class="ml-2">₹{% widthratio item.quantity 1 item.price %}</span></strong></p>
