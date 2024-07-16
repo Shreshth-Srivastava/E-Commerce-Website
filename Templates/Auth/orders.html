@@ -9,7 +9,7 @@
             <div class="w-full h-[8rem] bg-[rgb(40,40,40)] rounded-lg flex items-center justify-between px-4 overflow-hidden">
                 <p class="number"></p>
                 <p class="w-[10rem]"><strong>Total: <span class="ml-2">₹{{ order.get_cart_total }}</span></strong></p>
-                <a href="{% url 'order_details' user.id order.id %}" class="order-details bg-[white] text-black p-4 text-center rounded-full py-1 cursor-pointer">View Details</a>
+                <a href="{% url 'order_details' order.id %}" class="order-details bg-[white] text-black p-4 text-center rounded-full py-1 cursor-pointer">View Details</a>
             </div>
         {% endfor %}
         </div>
