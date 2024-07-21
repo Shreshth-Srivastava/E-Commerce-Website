@@ -9,8 +9,8 @@
                     <img class="rounded-lg w-[7rem] h-[85%]" src="{{product.img}}" alt="product-img">
                     <p>{{product.name}}</p>
                     <p><strong>₹{{product.price}}</strong></p>
-                    <a class="w-[5rem] h-[2rem] rounded-full bg-[white] text-[black] text-center pt-1" href="{% url 'removefromwishlist' user.id product.pk%}">Remove</a>
-                    <a data-path="{{ request.path }}" data-userid="{{user.id}}" data-name="{{product.name}}" class="Details bg-[white] text-black p-4 text-center rounded-full py-1 cursor-pointer">View Details</a>
+                    <a class="w-[5rem] h-[2rem] rounded-full bg-[white] text-[black] text-center pt-1" href="{% url 'removefromwishlist' product.pk%}">Remove</a>
+                    <a data-path="{{ request.path }}" data-name="{{product.name}}" class="Details bg-[white] text-black p-4 text-center rounded-full py-1 cursor-pointer">View Details</a>
                 </div>
             {% endfor %}
         {% else %}
