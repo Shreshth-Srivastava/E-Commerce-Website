@@ -4,5 +4,4 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='home'),
-    path('category/<str:category>/', views.Category, name='category1'),
 ]
