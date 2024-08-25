@@ -159,13 +159,13 @@ def AddToWishlist_category(request, pk):
     product = Product.objects.get(pk=pk)
     user = request.user
     WishlistItem.objects.create(user=user, name=product.name, price=product.price, img=product.img.url)
-    return redirect('category2', product.category)
+    return redirect('category', product.category)
 
 def RemoveFromWishlist_category(request, pk, category):
     user = request.user
     wishlistitem = WishlistItem.objects.get(pk=pk)
     wishlistitem.delete()
-    return redirect('category2', category)
+    return redirect('category', category)
 
 def Wishlist(request):
     user = request.user
@@ -221,16 +221,20 @@ def OrderPlaced(request):
     return render(request,'Auth/placed.html',context)
 
 def Category(request, category):
-    user = request.user
     products = Product.objects.filter(category=category)
-    wishlist = WishlistItem.objects.filter(user=user)
-    # wishlist = WishlistItem.objects.filter(user=user).values_list('name') !!New!!
+    if request.user.is_authenticated:
+        user = request.user
+        wishlist = WishlistItem.objects.filter(user=user)
+        # wishlist = WishlistItem.objects.filter(user=user).values_list('name') !!New!!
+    else:
+        user = {}
+        wishlist = {}
     context = {
         'products': products,
         'user': user,
         'wishlist': wishlist,
     }
-    return render(request,'Auth/category.html',context)
+    return render(request,'category.html',context)
 
 def Details(request, product_id):
     user = request.user
