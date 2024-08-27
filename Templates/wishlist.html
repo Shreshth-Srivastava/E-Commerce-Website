@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="main">
+    <div id="wishlist">
+        {% if products %}
+            {% for product in products %}
+                <div class="w-full h-[10rem] bg-[rgb(40,40,40)] rounded-lg flex items-center justify-between px-4 overflow-hidden">
+                    <img class="rounded-lg w-[7rem] h-[85%]" src="{{product.img}}" alt="product-img">
+                    <p>{{product.name}}</p>
+                    <p><strong>₹{{product.price}}</strong></p>
+                    <a class="w-[5rem] h-[2rem] rounded-full bg-[white] text-[black] text-center pt-1" href="{% url 'removefromwishlist' product.pk%}">Remove</a>
+                    <a data-path="{{ request.path }}" data-name="{{product.name}}" class="Details bg-[white] text-black p-4 text-center rounded-full py-1 cursor-pointer">View Details</a>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-3xl text-slate-500 mt-32">Your wishlist is empty</p>
+            <img src="{% static 'Images/empty_wishlist.png' %}" alt="empty_wishlist">
+            <a class="text-right text-xs w-full" href="https://www.freepik.com/icon/remove_10218522#fromView=search&page=1&position=3&uuid=3dc43c33-a395-4890-8f74-3808652408b5">Icon by Vectors Tank</a>
+        {% endif %}
+    </div>
+</div>
+<script src="{% static 'script/wishlist.js' %}"></script>
+{% endblock content %}
