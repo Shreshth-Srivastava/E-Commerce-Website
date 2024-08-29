@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="w-full min-h-full flex flex-col items-center p-4">
+    {% if items %}
+        <div name="Top-part" class="w-full h-[10rem] bg-[rgb(40,40,40)] text-center p-2 px-3 mt-12 rounded-lg" id="total">
+            <h1 class="text-3xl mb-2">Cart</h1>
+            <hr />
+            <div class="w-full h-[7rem] flex flex-col">
+                <div class="w-full h-8 flex">
+                    <div class="w-1/2 h-full border-l-2 border-b-2">
+                        <h1 class="text-xl">Total number of items in cart</h1>
+                    </div>
+                    <div class="w-1/2 h-full border-x-2 border-b-2">
+                        <h1 class="text-xl">Total Price</h1>
+                    </div>
+                </div>
+                <div class="w-full h-full flex justify-between">
+                    <div class="w-1/2 h-full text-center text-2xl pt-5">{{ order.get_cart_items }}</div>
+                    <div class="w-1/2 h-full text-center text-2xl pt-5">
+                        ₹{{ order.get_cart_total }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div name="Title bar" class="w-full px-8 mt-4 rounded-lg bg-blue-500 flex justify-between items-center">
+            <span class="w-44 h-12"></span>
+            <div>
+                <p class="text-xl mr-12">Name</p>
+            </div>
+            <div>
+                <p class="text-xl">Price of one unit</p>
+            </div>
+            <div>
+                <p class="text-xl">Quantity</p>
+            </div>
+            <div class="ml-12 mr-4">
+                <p class="text-xl"><strong>Total</strong></p>
+            </div>
+        </div>
+        <div name="Orders" class="w-full h-full px-4">
+            {% for item in items %}
+            <div class="w-full h-40 px-4 flex items-center justify-between py-3 my-2 border-b-2 border-[rgb(100,100,100)]">
+                <img class="h-full w-[7rem] rounded-lg" src="{{item.product.img.url}}" alt="Product-image" />
+                <div class="w-24 h-24 flex items-center justify-center text-center text-xl">
+                    <p>{{item.product.name}}</p>
+                </div>
+                <div class="w-16 h-12 flex justify-center items-center text-xl">
+                    <p>₹{{item.product.price}}</p>
+                </div>
+                <div class="w-16 h-12 flex items-center justify-center gap-2">
+                    <p class="text-xl">{{item.quantity}}</p>
+                    <span class="flex flex-col">
+                        <a href="{% url 'increase' item.pk %}"><span class="material-symbols-outlined cursor-pointer">
+                            keyboard_arrow_up
+                        </span></a>
+                        {% if item.quantity > 1 %}
+                        <a href="{% url 'decrease' item.pk %}"><span class="material-symbols-outlined cursor-pointer">
+                            keyboard_arrow_down
+                        </span></a>
+                        {% else %}
+                        <a href="{% url 'removefromcart' item.pk %}"><span class="material-symbols-outlined cursor-pointer">
+                            keyboard_arrow_down
+                        </span></a>
+                        {% endif %}
+                    </span>
+                </div>
+                <div class="w-16 h-12 flex justify-center items-center">
+                    <p>₹{% widthratio item.quantity 1 item.price %}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <a href="{% url 'checkout' %}" class="w-full h-full rounded-full bg-green-600 mt-8 text-xl p-1 text-center">Proceed to checkout</a>
+    {% else %}
+        <p class="text-3xl text-slate-500 mt-44">Your cart is empty</p>
+        <img class="w-[20%] mt-12" src="{% static 'Images/empty_cart.png' %}" alt="empty_cart">
+        <a class="text-right text-xs w-full" href="https://www.freepik.com/icon/cart_1360140#fromView=search&page=2&position=62&uuid=77f0ecc9-a647-479f-a192-190390878bfa">Icon by Darius Dan</a>    
+    {% endif %}
+</div>
+{% endblock content %}
