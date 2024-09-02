@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="w-full h-[100vh] flex items-center justify-center gap-4 px-8">
+    <div class="left w-[50%] h-[70%] w-1/2">
+        <img src="{{product.img.url}}" alt="product_img" class="w-full h-full aspect-video rounded-lg">
+    </div>
+    <div class="right w-full h-[70%] bg-[rgb(60,60,60)] rounded-lg p-8">
+        <section class="flex items-center justify-between">    
+            <div class="title text-4xl">{{product.name}}</div>
+            <div class="price text-4xl">₹{{product.price}}</div>
+        </section>
+        <div class="description py-8">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum possimus, deleniti dignissimos recusandae, officiis ea explicabo et ad itaque exercitationem vel ipsam tempore tenetur quos, voluptate debitis. Porro nesciunt excepturi natus numquam, tenetur qui sapiente nemo, molestias aliquid impedit quisquam deleniti ea nihil, iste vel adipisci vitae aspernatur nam molestiae.</div>
+        {% if user.is_authenticated %}
+            <section class="pt-4 flex justify-start items-center">
+                {% if cart %}
+                    <a href="{% url 'cart' %}" class="bg-white text-black text-center rounded-full p-2 mr-4">Go to cart</a>
+                {% else %}
+                    <a href="{% url 'addtocart' product.id %}" class="bg-white text-black text-center rounded-full p-2 mr-4">Add to cart</a>
+                {% endif %}
+                {% if wishlist %}
+                <a href="{% url 'removefromwishlist_details' product.id %}" class="text-center"><span class="bg-pink-400 rounded-full text-center py-2 px-8 text-white material-symbols-outlined">favorite</span></a>
+                {% else %}
+                <a href="{% url 'addtowishlist' product.id %}" class="text-black cursor-pointer"><span class="bg-white rounded-full text-center py-[0.45rem] px-8 material-symbols-outlined">favorite</span></a>
+                {% endif %}
+            </section>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}
