@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+{% if orders %}
+    <div class="Orders w-full h-full flex flex-col items-center justify-start gap-4 px-4 py-20">
+    {% for order in orders %}
+        <div class="w-full h-[8rem] bg-[rgb(40,40,40)] rounded-lg flex items-center justify-between px-4 overflow-hidden">
+            <p class="number"></p>
+            <p class="w-[10rem]"><strong>Total: <span class="ml-2">₹{{ order.get_cart_total }}</span></strong></p>
+            <a href="{% url 'order_details' order.id %}" class="order-details bg-[white] text-black p-4 text-center rounded-full py-1 cursor-pointer">View Details</a>
+        </div>
+    {% endfor %}
+    </div>
+{% else %}
+    <div class="w-full h-screen flex flex-col justify-center items-center">
+        <p class="text-3xl text-slate-500 pt-32">You haven't placed any order yet</p>
+        <img class="w-[30%]" src="{% static 'Images/no_orders.png' %}" alt="empty_wishlist">
+        <a class="text-right text-xs w-full" href="https://www.freepik.com/icon/shipping_3900732#fromView=search&page=1&position=1&uuid=302647a5-a391-4a51-bfc3-e1bcd4c37656">Icon by Flat Icons</a>
+    </div>
+{% endif %}
+</div>
+<script src="{% static 'script/orders.js' %}"></script>
+{% endblock content %}
