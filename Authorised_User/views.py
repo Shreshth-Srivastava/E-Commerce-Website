@@ -174,7 +174,7 @@ def Wishlist(request):
         'products' : wishlistitems,
         'user' : user,
     }
-    return render(request,'Auth/wishlist.html',context)
+    return render(request,'wishlist.html',context)
 
 def Cart(request):
     # products = Product.objects.all()
@@ -186,7 +186,7 @@ def Cart(request):
         'user' : user,
         'order' : user_order
     }
-    return render(request,'Auth/cart.html',context)
+    return render(request,'cart.html',context)
 
 def Checkout(request):
     user = request.user
@@ -211,14 +211,14 @@ def Checkout(request):
         old_order.save()
         return redirect('placed')
 
-    return render(request,'Auth/checkout.html',context)
+    return render(request,'checkout.html',context)
 
 def OrderPlaced(request):
     user = request.user
     context = {
         'user': user,
     }
-    return render(request,'Auth/placed.html',context)
+    return render(request,'placed.html',context)
 
 def Category(request, category):
     products = Product.objects.filter(category=category)
@@ -237,20 +237,26 @@ def Category(request, category):
     return render(request,'category.html',context)
 
 def Details(request, product_id):
-    user = request.user
+    if request.user.is_authenticated:
+        user = request.user
+        user_wishlist = WishlistItem.objects.filter(user=user)
+        user_order = Order.objects.get(user=user, placed=False)
+        user_cart = OrderItem.objects.filter(order=user_order)
+        wishlist = user_wishlist.filter(name=product.name)
+        cart = user_cart.filter(product=product)
+    else:
+        user = None
+        wishlist = None
+        cart = None
+
     product = Product.objects.get(id = product_id)
-    user_wishlist = WishlistItem.objects.filter(user=user)
-    user_order = Order.objects.get(user=user, placed=False)
-    wishlist = user_wishlist.filter(name=product.name)
-    user_cart = OrderItem.objects.filter(order=user_order)
-    cart = user_cart.filter(product=product)
     context = {
         'user': user,
         'product': product,
         'wishlist': wishlist,
         'cart': cart
     }
-    return render(request,'Auth/details.html',context)
+    return render(request,'details.html',context)
 
 def Orders(request):
     user = request.user
@@ -260,7 +266,7 @@ def Orders(request):
         'user': user,
         'orders': orders,
     }
-    return render(request,'Auth/orders.html',context)
+    return render(request,'orders.html',context)
 
 def Order_Details(request, orderid):
     user = request.user
@@ -270,7 +276,7 @@ def Order_Details(request, orderid):
         'items': items,
         'user': user
     }
-    return render(request, 'Auth/order_details.html',context)
+    return render(request, 'order_details.html',context)
 
 def orders_json(request):
     data = list(Order.objects.filter(user=request.user).values())
