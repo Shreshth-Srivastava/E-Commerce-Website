@@ -1,18 +1,31 @@
 {% extends 'base.html' %}
-{% block content %}
+{% load static %} {% block content %}
 <div class="main">
-    {% for product in products %}
-    <div id="container">
-      <img src="{{product.img}}" alt="Placeholder" id="index_images"/>
-      <br />
-      <div class="mb-2" id="details">
-        <h3>{{product.name}}</h3>
-        <h3>₹{{product.price}}</h3>
-      </div>
-      <a href="#" id="Wishlist" class="w-64 h-8 rounded-full text-center pt-1">Add to wishlist</a>
-      <br>
-      <a href="#" class="bg-[blue] w-[16rem] h-8 text-center rounded-full py-1">Add to cart</a>
+  {% for product in products %}
+  <div id="container">
+    {% if request.user.is_authenticated %}
+    <a
+      data-url1="{% url 'addtowishlist_category' product.id %}"
+      data-product_name="{{product.name}}"
+      data-category="{{product.category}}"
+      id="Wishlist"
+      class="text-black flex items-center justify-center rounded-full cursor-pointer p-2 -ml-[90%]"
+      ><span class="material-symbols-outlined"> favorite </span></a
+    >
+    {% endif %}
+    <img src="{{product.img.url}}" alt="Placeholder" id="index_images" />
+    <br />
+    <div id="details">
+      <h3>{{product.name}}</h3>
+      <h3>₹{{product.price}}</h3>
     </div>
-    {% endfor %}
+    <a
+      href="{% url 'details' product.id %}"
+      class="bg-[blue] w-[100%] h-8 text-center rounded-full py-1 mt-2"
+      >View Details</a
+    >
   </div>
+  {% endfor %}
+  <script src="{% static 'script/category.js' %}"></script>
+</div>
 {% endblock %}
