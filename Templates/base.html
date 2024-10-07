@@ -15,11 +15,7 @@
 
 <body>
     <nav>
-        {% if request.user.is_authenticated %}
-        <a href="{% url 'home2' %}">ECom.</a>
-        {% else %}
         <a href="{% url 'home' %}">ECom.</a>
-        {% endif %}
         <div class="w-[55%] flex items-center justify-between text-xl">
             <div class="categorybtn flex cursor-pointer">
                 <p>Categories</p>
@@ -43,8 +39,8 @@
                     <a href="{% url 'logout' %}" class="border-t-2 border-gray-500">Log-out</a>
                 </div>
                 {% else %}
-                <a href="{% url 'signup' %}" class="p-1 px-2 bg-yellow-600 cursor-pointer rounded-full mr-2">Sign Up</a>
-                <a href="{% url 'login' %}" class="p-1 px-2 bg-yellow-600 cursor-pointer rounded-full">Log in</a>
+                <a href="{% url 'signup' %}" class="p-1 px-2 bg-[hsl(40,100,50)] cursor-pointer rounded-full mr-2">Sign Up</a>
+                <a href="{% url 'login' %}" class="p-1 px-2 bg-[hsl(40,100,50)] cursor-pointer rounded-full">Log in</a>
                 {% endif %}
             </div>
         </div>
